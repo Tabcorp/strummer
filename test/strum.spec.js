@@ -1,13 +1,8 @@
 var should = require('should');
-var strum  = require('../index');
-
-// two main strum functions
-var s   = strum.schema;
-var def = strum.define;
+var s      = require('../index');
 
 // integrate with should.js
-strum.integrate(should.Assertion);
-
+require('./strum.should');
 
 describe('strum', function() {
 
