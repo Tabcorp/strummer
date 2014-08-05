@@ -57,19 +57,19 @@ s.object = function(opts) {
 // Leaf matchers
 
 s.string = function (opts) {
-  return s(leaf(function(value) {
+  return leaf(function(value) {
     if (typeof value !== 'string') {
       return 'should be a string';
     }
-  }));
+  });
 };
 
 s.number = function (opts) {
-  return s(leaf(function(value) {
+  return leaf(function(value) {
     if (typeof value !== 'number') {
       return 'should be a number';
     }
-  }));
+  });
 };
 
 // Should.js integration
