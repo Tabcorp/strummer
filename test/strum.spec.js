@@ -62,6 +62,38 @@ describe('strum', function() {
 
   });
 
+  describe('custom matchers', function() {
+
+    xit('can define simple leaf matchers', function() {
+
+    });
+
+    it('can define dynamic matchers', function() {
+      
+      var schema = s({
+        thing: function (path, value) {
+          if (value.type === 'A') {
+            return s({a: 'number'})(path, value);
+          } else {
+            return s({b: 'number'})(path, value);
+          }
+        }
+      });
+
+      schema({
+        thing: {type: 'B', b: 'foo'}
+      }).should.eql([
+        {
+          path: 'thing.b',
+          value: 'foo',
+          message: 'should be a number'
+        }
+      ]);
+
+    });
+
+  });
+
   describe('syntactic sugar', function() {
 
     it('can use the matchers name instead of the function', function() {
