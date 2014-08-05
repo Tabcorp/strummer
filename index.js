@@ -6,13 +6,18 @@ function s(spec) {
       obj = path;
       path = '';
     }
+    var err = null;
     if (typeof spec === 'function') {
-      return spec(path, obj);
+      err = spec(path, obj);
     } else if (typeof spec === 'object') {
-      return s.object(spec)(path, obj)
+      err = s.object(spec)(path, obj)
     } else if (typeof spec === 'string') {
-      return s[spec]()(path, obj);
+      err = s[spec]()(path, obj);
     }
+    if (typeof err === 'function') {
+      err = err(path, obj);
+    }
+    return err;
   };
 };
 

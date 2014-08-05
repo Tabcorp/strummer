@@ -62,20 +62,33 @@ describe('strum', function() {
 
   });
 
-  describe('custom matchers', function() {
+  describe('matchers', function() {
 
-    xit('can define simple leaf matchers', function() {
-
+    it('matchers can return other matchers', function() {
+      var schema = s({
+        age: function(path, value) {
+          return s.number();
+        }
+      });
+      schema({
+        age: 'foo'
+      }).should.eql([
+        {
+          path: 'age',
+          value: 'foo',
+          message: 'should be a number'
+        }
+      ]);
     });
 
-    it('can define dynamic matchers', function() {
-      
+    it('can return dynamic matchers', function() {
+
       var schema = s({
         thing: function (path, value) {
           if (value.type === 'A') {
-            return s({a: 'number'})(path, value);
+            return s({a: 'number'});
           } else {
-            return s({b: 'number'})(path, value);
+            return s({b: 'number'});
           }
         }
       });
