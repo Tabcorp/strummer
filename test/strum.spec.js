@@ -10,7 +10,7 @@ describe('strum', function() {
       age:  s.number()
     });
 
-    schema('', {
+    schema({
       name: 'bob',
       age: 'foo'
     }).should.eql([
@@ -35,7 +35,7 @@ describe('strum', function() {
       }
     });
 
-    schema('', {
+    schema({
       name: 'bob',
       address: {
         street: 'Pitt St',

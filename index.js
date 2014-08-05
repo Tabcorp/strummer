@@ -2,6 +2,10 @@
 
 function s(spec) {
   return function(path, obj) {
+    if (obj === undefined) {
+      obj = path;
+      path = '';
+    }
     if (typeof spec === 'function') {
       return spec(path, obj);
     } else if (typeof spec === 'object') {
