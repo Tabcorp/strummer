@@ -74,7 +74,7 @@ s.number = function (opts) {
 
 // Should.js integration
 
-s.integrate = function(assertion) {
+function integrate(assertion) {
 
   assertion.prototype.structure = function(spec){
     var errors = s(spec)(this.obj);
@@ -96,4 +96,6 @@ s.integrate = function(assertion) {
 
 // That's all folks!
 
-module.exports = s;
+exports.schema = s;
+exports.define = leaf;
+exports.integrate = integrate;

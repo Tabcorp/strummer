@@ -1,7 +1,13 @@
 var should = require('should');
-var s      = require('../index');
+var strum  = require('../index');
 
-s.integrate(require('should').Assertion);
+// two main strum functions
+var s   = strum.schema;
+var def = strum.define;
+
+// integrate with should.js
+strum.integrate(should.Assertion);
+
 
 describe('strum', function() {
 
@@ -63,6 +69,26 @@ describe('strum', function() {
   });
 
   describe('matchers', function() {
+
+    it('can define custom leaf matchers', function() {
+      var greeting = def(function(val) {
+        if (/hello [a-z]+/.test(val) === false) {
+          return 'should be a greeting';
+        }
+      });
+      var schema = s({
+        hello: greeting
+      });
+      schema({
+        hello: 'bye'
+      }).should.eql([
+        {
+          path: 'hello',
+          value: 'bye',
+          message: 'should be a greeting'
+        }
+      ]);
+    });
 
     it('matchers can return other matchers', function() {
       var schema = s({
