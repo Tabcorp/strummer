@@ -1,6 +1,8 @@
 var should = require('should');
 var s      = require('../index');
 
+s.integrate(require('should').Assertion);
+
 describe('strum', function() {
 
   describe('structure', function() {
@@ -80,6 +82,23 @@ describe('strum', function() {
         }
       ]);
 
+    });
+
+  });
+
+  describe('should integration', function() {
+
+    it('throws a nice legible error', function() {
+      var person = {
+        name: 'bob',
+        age: 'foo'
+      };
+      (function() {
+        person.should.have.structure({
+          name: 'string',
+          age: 'number'
+        });
+      }).should.throw(/should be a number/);
     });
 
   });
