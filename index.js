@@ -10,6 +10,8 @@ function s(spec) {
       return spec(path, obj);
     } else if (typeof spec === 'object') {
       return s.object(spec)(path, obj)
+    } else if (typeof spec === 'string') {
+      return s[spec]()(path, obj);
     }
   };
 };
