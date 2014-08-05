@@ -2,6 +2,14 @@
 
 > Structural-matching for JavaScript.
 
+---
+
+*This is an evolution of [js-match](https://github.com/TabDigital/js-match) for more flexibility.*
+ 
+*But.... :warning: Very rough draft - work in progress.... please do not use :smile:*
+
+---
+
 ### Main uses cases
 
 - validating user input
