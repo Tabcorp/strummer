@@ -1,6 +1,9 @@
 // Core library
 
 function s(spec) {
+  if (typeof spec === 'function' && spec.length === 1) {
+    return leaf(spec);
+  }
   return function(path, obj) {
     if (obj === undefined) {
       obj = path;
@@ -97,5 +100,4 @@ function integrate(assertion) {
 // That's all folks!
 
 exports.schema = s;
-exports.define = leaf;
 exports.integrate = integrate;

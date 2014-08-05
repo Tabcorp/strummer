@@ -71,7 +71,7 @@ describe('strum', function() {
   describe('matchers', function() {
 
     it('can define custom leaf matchers', function() {
-      var greeting = def(function(val) {
+      var greeting = s(function(val) {
         if (/hello [a-z]+/.test(val) === false) {
           return 'should be a greeting';
         }
