@@ -41,7 +41,8 @@ var person = s({
   address: {
     city: 'string',
     postcode: 'number'
-  }
+  },
+  nicknames: ['string']
 });
 
 console.log(person(bob));
@@ -63,11 +64,12 @@ var person = s({
   address: s.object({
     city: s.string(),
     postcode: s.number()
-  })
+  }),
+  nicknames: s.array({of: s.string()})
 });
 ```
 
-This means all built-in matchers are functions,
+This means all matchers are actually functions,
 and can potentially take extra parameters:
 
 ```
@@ -76,16 +78,24 @@ s.number({min:1, max:100})`
 
 The full list of built-in matchers is:
 
-- `s.string()`
-- `s.number(min, max)`
 - `s.object(fields)`
 - `s.array(min, max, of)`
+- `s.string()`
+- `s.number(min, max)`
 - `s.url()`
 - `s.isoDate()`
 - `s.uuid(version)`
 - `s.enum(values)`
+- `s.func(arity)`
 
 ### A more complex example
+
+Here's an example that mixes nested objects, arrays,
+and matches on different types with extra options.
+
+This is the most spelled-out version,
+calling each matcher function directly even when it's implicit.
+
 
 ```js
 var person = s({
@@ -103,7 +113,8 @@ var person = s({
 });
 ```
 
-Of course nothing prevents you from extracting reusable types:
+You can of course extract matchers to reuse them,
+or to make the hierarchy more legible.
 
 ```js
 var address = {
@@ -124,19 +135,20 @@ Depending on how complex your configuration is,
 you can use many different versions to be as legible as possible:
 
 ```js
+// referencing the matcher by name
 nicknames: 'array'
+
+// using the array notation on another matcher
+nicknames: ['number']
+nicknames: [s.number({min: 5})]
+
+// using the array matcher itself
 nicknames: s.array('number')
 nicknames: s.array(s.number({min: 5}));
+
+// specify more array-matching options
 nicknames: s.array({max: 3, of: 'number'})
 nicknames: s.array({max: 3, of: s.number({min: 5})})
-```
-
-Or if you defined your custom type:
-
-```js
-var list = s({
-  addresses: s.array(address);
-});
 ```
 
 ### Defining custom matchers
@@ -162,12 +174,22 @@ s({
 })
 ```
 
+For more flexibility, it's usually a good idea to let the matcher take optional arguments:
+
+```js
+function myCustomId(opts) {
+  return function(value) {
+    // ...
+  }
+}
+```
+
 ### Should.js integration
 
 Strum plays well with [should.js](#).
 
 For quick-and-easy validation in your unit tests, you can use `have.structure`
-which is loaded when you require strum.
+which is loaded when you call `require('strum')`.
 
 ```js
 var person = {
