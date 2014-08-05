@@ -5,28 +5,29 @@
 ---
 
 *This is an evolution of [js-match](https://github.com/TabDigital/js-match) for more flexibility.*
- 
+
 *But.... :warning: Very rough draft - work in progress.... please do not use :smile:*
 
 ---
 
-### Main uses cases
+## Main uses cases
 
 - validating user input
 - validating HTTP request payloads, to avoid having to check for each value before using it
 - validating return values in test cases
 
 
-### Table of contents
+## Table of contents
 
 - [Getting started](#)
 - [Getting to know the matchers](#)
 - [A more complex example](#)
+- [The case of arrays](#)
 - [Defining custom matchers](#)
 - [Should.js integration](#)
 
 
-### Getting started
+## Getting started
 
 ```
 npm install strum
@@ -53,7 +54,7 @@ console.log(person(bob));
 // ]
 ```
 
-### Getting to know the matchers
+## Getting to know the matchers
 
 The example above is actually syntactic sugar for:
 
@@ -72,8 +73,8 @@ var person = s({
 This means all matchers are actually functions,
 and can potentially take extra parameters:
 
-```
-s.number({min:1, max:100})`
+```js
+s.number({min:1, max:100})
 ```
 
 The full list of built-in matchers is:
@@ -88,7 +89,7 @@ The full list of built-in matchers is:
 - `s.enum(values)`
 - `s.func(arity)`
 
-### A more complex example
+## A more complex example
 
 Here's an example that mixes nested objects, arrays,
 and matches on different types with extra options.
@@ -128,7 +129,7 @@ var person: s({
 });
 ```
 
-### The case of arrays
+## The case of arrays
 
 `array` is probably the most flexible matcher.
 Depending on how complex your configuration is,
@@ -151,7 +152,7 @@ nicknames: s.array({max: 3, of: 'number'})
 nicknames: s.array({max: 3, of: s.number({min: 5})})
 ```
 
-### Defining custom matchers
+## Defining custom matchers
 
 Matchers are functions that take one argument (`value`),
 and return an error message if they didn't match.
@@ -184,7 +185,7 @@ function myCustomId(opts) {
 }
 ```
 
-### Should.js integration
+## Should.js integration
 
 Strum plays well with [should.js](#).
 
