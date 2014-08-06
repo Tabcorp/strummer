@@ -179,9 +179,9 @@ For more flexibility, it's usually a good idea to let the matcher take optional 
 
 ```js
 function myCustomId(opts) {
-  return function(value) {
+  return s(function(value) {
     // ...
-  }
+  });
 }
 ```
 
