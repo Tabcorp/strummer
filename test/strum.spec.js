@@ -61,6 +61,24 @@ describe('strum', function() {
 
     });
 
+    it('validates arrays of matchers', function() {
+
+      var schema = s({
+        names: s.array({of: s.string()})
+      });
+
+      schema({
+        names: ['bob', 3]
+      }).should.eql([
+        {
+          path: 'names[1]',
+          value: 3,
+          message: 'should be a string'
+        }
+      ]);
+
+    });
+
   });
 
   describe('matchers', function() {

@@ -1,3 +1,6 @@
+var _    = require('lodash');
+var util = require('util');
+
 // Core library
 
 function s(spec) {
@@ -33,12 +36,10 @@ function leaf(matcher) {
         value: value,
         message: err
       }];
+    } else {
+      return [];
     }
   };
-}
-
-function flatten(arrays) {
-  return Array.prototype.concat.apply([], arrays);
 }
 
 // Complex matchers
@@ -53,7 +54,18 @@ s.object = function(opts) {
       var err = matcher(subpath, obj[key]);
       if (err) errors.push(err)
     }
-    return flatten(errors);
+    return _.flatten(errors);
+  };
+};
+
+s.array = function(opts) {
+  return function(path, obj) {
+    if (util.isArray(obj) === false) {
+      return [{path: path, value: obj, message: 'should be an array'}];
+    }
+    return _.compact(obj.map(function(val, index) {
+      return opts.of(path + '[' + index + ']', val);
+    }));
   };
 };
 
