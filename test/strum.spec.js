@@ -1,8 +1,4 @@
-var should = require('should');
-var s      = require('../lib/index');
-
-// integrate with should.js
-require('./strum.should');
+var s = require('../lib/index');
 
 describe('strum', function() {
 
@@ -124,23 +120,6 @@ describe('strum', function() {
         }
       ]);
 
-    });
-
-  });
-
-  describe('should integration', function() {
-
-    it('throws a nice legible error', function() {
-      var person = {
-        name: 'bob',
-        age: 'foo'
-      };
-      (function() {
-        person.should.have.structure({
-          name: 'string',
-          age: 'number'
-        });
-      }).should.throw(/should be a number/);
     });
 
   });
