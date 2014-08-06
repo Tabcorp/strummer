@@ -1,6 +1,6 @@
-var s = require('../lib/index');
+var s = require('../../lib/index');
 
-describe('arrays', function() {
+describe('array matcher', function() {
 
   it('validates arrays of matchers', function() {
 

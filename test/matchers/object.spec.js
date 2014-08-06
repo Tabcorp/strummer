@@ -1,6 +1,6 @@
-var s = require('../lib/index');
+var s = require('../../lib/index');
 
-describe('objects', function() {
+describe('object matcher', function() {
 
     it('validates flat objects', function() {
 

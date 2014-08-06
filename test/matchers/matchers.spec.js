@@ -1,7 +1,6 @@
-var should = require('should');
-var m      = require('../lib/matchers');
+var m = require('../../lib/matchers');
 
-describe('matchers', function() {
+describe('leaf matchers', function() {
 
   describe('number', function() {
 
