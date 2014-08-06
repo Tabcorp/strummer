@@ -1,5 +1,5 @@
 var should = require('should');
-var strum  = require('../index');
+var strum  = require('../lib/index');
 
 should.Assertion.prototype.structure = function(spec){
   var errors = strum(spec)(this.obj);
