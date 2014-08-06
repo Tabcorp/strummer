@@ -1,0 +1,3 @@
+--require test/spec-helpers.js
+--recursive
+--reporter spec
