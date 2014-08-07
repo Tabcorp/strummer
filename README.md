@@ -4,9 +4,9 @@
 
 ## Main uses cases
 
-- validating user input
-- validating HTTP request payloads, to avoid having to check for each value before using it
-- validating return values in test cases
+- validating user input / config files
+- validating inbound HTTP request payloads
+- writing expressive unit tests
 
 ## Table of contents
 
