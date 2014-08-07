@@ -17,6 +17,58 @@ describe('strum', function() {
     ]);
   });
 
+  it('can handle a null obj', function() {
+    var schema = s({
+      name: s.string()
+    });
+    schema('path', null).should.eql([
+      {
+        path: 'path',
+        value: null,
+        message: 'should be an object'
+      }
+    ]);
+  });
+
+  it('can handle an undefined obj', function() {
+    var schema = s({
+      name: s.string()
+    });
+    schema('path', undefined).should.eql([
+      {
+        path: 'path',
+        value: undefined,
+        message: 'should be an object'
+      }
+    ]);
+  });
+
+  it('can handle null values', function() {
+    var schema = s({
+      name: s.string()
+    });
+    schema('', {name: null}).should.eql([
+      {
+        path: 'name',
+        value: null,
+        message: 'should be a string'
+      }
+    ]);
+  });
+
+  it('can handle undefined values', function() {
+    var schema = s({
+      name: s.string()
+    });
+    schema('', {name: undefined}).should.eql([
+      {
+        path: 'name',
+        value: undefined,
+        message: 'should be a string'
+      }
+    ]);
+  });
+
   it('can specify a matcher is optional', function() {
     var schema = s({
       name: s.optional(s.string())

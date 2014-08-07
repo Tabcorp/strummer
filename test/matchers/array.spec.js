@@ -3,6 +3,15 @@ var string = require('../../lib/matchers/string');
 
 describe('array matcher', function() {
 
+  it('rejects anything that isnt an array', function() {
+    var schema = array({of: string()});
+    schema('path', 'bob').should.eql([{
+      path: 'path',
+      value: 'bob',
+      message: 'should be an array'
+    }]);
+  });
+
   it('validates arrays of matchers', function() {
     var schema = array({of: string()});
     schema('path', ['bob', 3]).should.eql([{
