@@ -1,4 +1,4 @@
-# Strum
+# Strum.js
 
 > Structural-matching for JavaScript.
 
@@ -54,7 +54,7 @@ console.log(person(bob));
 // ]
 ```
 
-## Getting to know the matchers
+## Syntactic sugar
 
 The example above is actually syntactic sugar for:
 
@@ -71,13 +71,13 @@ var person = s({
 ```
 
 This means all matchers are actually functions,
-and can potentially take extra parameters:
+and can potentially take extra parameters.
 
 ```js
 s.number({min:1, max:100})
 ```
 
-The full list of built-in matchers is:
+Some of the most common built-in matchers are
 
 - `s.object(fields)`
 - `s.array(min, max, of)`
@@ -89,13 +89,23 @@ The full list of built-in matchers is:
 - `s.enum(values)`
 - `s.func(arity)`
 
+You can find more examples for each matcher at [README-MATCHERS](#).
+Each matcher might support both complex parameters and nice syntactic sugar.
+This is particularly true for arrays.
+
+```js
+'array'
+s.array('number')
+s.array({max: 3, of: 'number'})
+s.array({max: 3, of: s.number({min: 5})})
+```
+
 ## A more complex example
 
 Here's an example that mixes nested objects, arrays,
 and matches on different types with extra options.
-
 This is the most spelled-out version,
-calling each matcher function directly even when it's implicit.
+calling each matcher function directly even when it could be implicit.
 
 
 ```js
@@ -129,61 +139,47 @@ var person: s({
 });
 ```
 
-## The case of arrays
-
-`array` is probably the most flexible matcher.
-Depending on how complex your configuration is,
-you can use many different versions to be as legible as possible:
-
-```js
-// referencing the matcher by name
-nicknames: 'array'
-
-// using the array notation on another matcher
-nicknames: ['number']
-nicknames: [s.number({min: 5})]
-
-// using the array matcher itself
-nicknames: s.array('number')
-nicknames: s.array(s.number({min: 5}));
-
-// specify more array-matching options
-nicknames: s.array({max: 3, of: 'number'})
-nicknames: s.array({max: 3, of: s.number({min: 5})})
-```
-
 ## Defining custom matchers
 
-Matchers are functions that take one argument (`value`),
-and return an error message if they didn't match.
-
+Matchers are functions that return one or more errors for a given value.
+The canonical form is:
 
 ```js
-function myCustomId(value) {
-  if (/^[a-f]{5}-[0-9]{5}$/.test(value) === false) {
-    return 'should be a special ID';
-  }
+function myMatcher(opts) {
+  return function(path, value) {
+    if (/* the value is not right */) {
+      return [{
+        path: 'some.field',
+        value: 'hello',
+        message: 'should be different'
+      }];
+    }
+  };
 }
 ```
 
-You can then reference that function directly:
-
-```
-s({
-  name: 'string',
-  id: myCustomId
-})
-```
-
-For more flexibility, it's usually a good idea to let the matcher take optional arguments:
+In most cases though, you won't need to report a different `path` or `value` from the ones that are passed in.
+These simpler matchers can be defined as:
 
 ```js
-function myCustomId(opts) {
+function myMatcher(opts) {
   return s(function(value) {
-    // ...
+    if (/* the value is not right */) {
+      return 'should be different';
+    }
   });
 }
 ```
+
+You can use these matchers like any of the built-in ones.
+
+```js
+s({
+  name: 'string',
+  id: myMatcher({max: 3})
+})
+```
+
 
 ## Should.js integration
 
