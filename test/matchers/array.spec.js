@@ -59,7 +59,7 @@ describe('array matcher', function() {
     schema('path', ['bob']).should.eql([{
       path: 'path',
       value: ['bob'],
-      message: 'minimum length is 2'
+      message: 'should have at least 2 items'
     }]);
   });
 
@@ -68,7 +68,7 @@ describe('array matcher', function() {
     schema('path', ['bob', 'the', 'builder']).should.eql([{
       path: 'path',
       value: ['bob', 'the', 'builder'],
-      message: 'maximum length is 2'
+      message: 'should have at most 2 items'
     }]);
   });
 
