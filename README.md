@@ -85,23 +85,21 @@ Matchers usually support both simple / complex usages, with nice syntactic sugar
 
 Here's an example that mixes nested objects, arrays,
 and matches on different types with extra options.
-This is the most spelled-out version,
-calling each matcher function directly even when it could be implicit.
-
 
 ```js
 var person = s({
-  name: s.string(),
+  id: s.uuid({version: 4}),
+  name: 'string',
   age: s.number({min: 1, max: 100}),
-  address: s.object({
-    city: s.string(),
-    postcode: s.number()
+  address: {
+    city: 'string',
+    postcode: 'number'
   }),
-  nicknames: s.array({max: 3, of: s.string()})
-  phones: s.array({min: 1, of: {
+  nicknames: [{max: 3, of: 'string'}],
+  phones: [{of: {
     type: s.enum({values: ['MOBILE', 'HOME']}),
-    number: s.number()
-  }})
+    number: 'number'
+  }}]
 });
 ```
 
@@ -109,13 +107,16 @@ You can of course extract matchers to reuse them,
 or to make the hierarchy more legible.
 
 ```js
+var age = s.number({min: 1, max: 100})
+
 var address = {
-  city: s.string(),
-  postcode: s.number()
+  city: 'string',
+  postcode: 'number'
 };
 
 var person: s({
   name: 'string',
+  age: age,
   home: address
 });
 ```
