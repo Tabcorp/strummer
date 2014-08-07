@@ -14,7 +14,7 @@
 - [Syntactic sugar](#syntactic-sugar)
 - [A more complex example](#a-more-complex-example)
 - [Defining custom matchers](#defining-custom-matchers)
-- [Should.js integration](#should-js-integration)
+- [Should.js integration](#shouldjs-integration)
 
 ## Getting started
 
@@ -169,15 +169,15 @@ s({
 })
 ```
 
-
 ## Should.js integration
 
-`Strummer` plays well with [should.js](#).
-
-For quick-and-easy validation in your unit tests, you can use `have.structure`
-which is loaded when you call `require('strummer')`.
+`Strummer` plays well with [should.js](#). For quick-and-easy validation
+in your unit tests, you can use `have.structure` on entire objects.
 
 ```js
+var should = require('should');
+require('strummer/should')(should);
+
 var person = {
   name: 'bob',
   age: 'foo'
