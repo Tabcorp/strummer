@@ -54,4 +54,31 @@ describe('array matcher', function() {
     }]);
   });
 
+  it('validates min length of an array', function() {
+    var schema = array({of: string(), min:2});
+    schema('path', ['bob']).should.eql([{
+      path: 'path',
+      value: ['bob'],
+      message: 'should have at least 2 items'
+    }]);
+  });
+
+  it('validates max length of an array', function() {
+    var schema = array({of: string(), max:2});
+    schema('path', ['bob', 'the', 'builder']).should.eql([{
+      path: 'path',
+      value: ['bob', 'the', 'builder'],
+      message: 'should have at most 2 items'
+    }]);
+  });
+
+  it('rejects if min and max lengths options are violated', function() {
+    var schema = array({of: string(), min:1, max:2});
+    schema('path', ['bob', 'the', 'builder']).should.eql([{
+      path: 'path',
+      value: ['bob', 'the', 'builder'],
+      message: 'should have length between 1 and 2'
+    }]);
+  });
+
 });
