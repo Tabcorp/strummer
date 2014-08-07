@@ -1,14 +1,6 @@
-# Strum.js
+# Strummer
 
 > Structural-matching for JavaScript.
-
----
-
-*This is an evolution of [js-match](https://github.com/TabDigital/js-match) for more flexibility.*
-
-*But.... :warning: Very rough draft - work in progress.... please do not use :smile:*
-
----
 
 ## Main uses cases
 
@@ -16,25 +8,22 @@
 - validating HTTP request payloads, to avoid having to check for each value before using it
 - validating return values in test cases
 
-
 ## Table of contents
 
-- [Getting started](#)
-- [Getting to know the matchers](#)
-- [A more complex example](#)
-- [The case of arrays](#)
-- [Defining custom matchers](#)
-- [Should.js integration](#)
-
+- [Getting started](#getting-started)
+- [Syntactic sugar](#syntactic-sugar)
+- [A more complex example](#a-more-complex-example)
+- [Defining custom matchers](#defining-custom-matchers)
+- [Should.js integration](#should-js-integration)
 
 ## Getting started
 
 ```
-npm install strum
+npm install strummer
 ```
 
 ```js
-var s = require('strum');
+var s = require('strummer');
 
 var person = s({
   name: 'string',
@@ -183,10 +172,10 @@ s({
 
 ## Should.js integration
 
-Strum plays well with [should.js](#).
+`Strummer` plays well with [should.js](#).
 
 For quick-and-easy validation in your unit tests, you can use `have.structure`
-which is loaded when you call `require('strum')`.
+which is loaded when you call `require('strummer')`.
 
 ```js
 var person = {
