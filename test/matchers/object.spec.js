@@ -4,6 +4,19 @@ var number = require('../../lib/matchers/number');
 
 describe('object matcher', function() {
 
+    it('rejects anything that isnt an object', function() {
+      var schema = object({
+        name: string(),
+        age:  number()
+      });
+
+      schema('', 'bob').should.eql([{
+        path: '',
+        value: 'bob',
+        message: 'should be an object'
+      }]);
+    });
+
     it('validates flat objects', function() {
       var schema = object({
         name: string(),
