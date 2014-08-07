@@ -1,6 +1,6 @@
 var s = require('../lib/index');
 
-describe('strum', function() {
+describe('strummer', function() {
 
   it('passes null values to the matchers', function() {
     var schema = s({
@@ -149,30 +149,6 @@ describe('strum', function() {
         message: 'should be a number'
       }
     ]);
-
-  });
-
-  describe('syntactic sugar', function() {
-
-    it('can use the matchers name instead of the function', function() {
-
-      var schema = s({
-        name: 'string',
-        age:  'number'
-      });
-
-      schema({
-        name: 'bob',
-        age: 'foo'
-      }).should.eql([
-        {
-          path: 'age',
-          value: 'foo',
-          message: 'should be a number'
-        }
-      ]);
-
-    });
 
   });
 
