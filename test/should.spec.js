@@ -1,8 +1,8 @@
+var should = require('should');
 var s = require('../lib/index');
 
 // consumers would actually use this as
 // require('strum/should')(should)
-var should = require('should');
 require('../should')(should);
 
 describe('should.js integration', function() {
@@ -31,10 +31,10 @@ describe('should.js integration', function() {
     };
     try {
       person.should.have.structure({
-        phones: s.array({
+        phones: s.array({of: {
           type: 'string',
           number: 'number'
-        })
+        }})
       });
     } catch(ex) {
       ex.message.should.containEql('phones[0].type should be a string');
