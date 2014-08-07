@@ -75,7 +75,7 @@ Some of the most common built-in matchers are
 - `s.url()`
 - `s.isoDate()`
 - `s.uuid(version)`
-- `s.enum(values)`
+- `s.enum(name, values, verbose)`
 - `s.func(arity)`
 
 They all come with [several usage examples](https://github.com/rprieto/strummer/blob/master/MATCHERS.md).

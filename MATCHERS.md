@@ -2,6 +2,7 @@
 
 - [array](#array)
 - [enum](#enum)
+- [func](#func)
 - [isoDate](#isoDate)
 - [number](#number)
 - [object](#object)
@@ -40,6 +41,17 @@ state: s.enum({values: ['NSW', 'VIC'], name:'state'})
 
 // displays "should be a valid state (NSW,VIC)"
 state: s.enum({values: ['NSW', 'VIC'], name:'state', verbose: true})
+```
+
+## func
+
+```js
+// match any function
+cb: 'func'
+cb: s.func()
+
+// match a function with 3 parameters
+cb: s.func({arity: 3})
 ```
 
 ## isoDate
