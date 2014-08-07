@@ -30,7 +30,7 @@ describe('strum', function() {
     ]);
   });
 
-  it('can handle a undefined obj', function() {
+  it('can handle an undefined obj', function() {
     var schema = s({
       name: s.string()
     });
@@ -39,6 +39,32 @@ describe('strum', function() {
         path: 'path',
         value: undefined,
         message: 'should be an object'
+      }
+    ]);
+  });
+
+  it('can handle null values', function() {
+    var schema = s({
+      name: s.string()
+    });
+    schema('', {name: null}).should.eql([
+      {
+        path: 'name',
+        value: null,
+        message: 'should be a string'
+      }
+    ]);
+  });
+
+  it('can handle undefined values', function() {
+    var schema = s({
+      name: s.string()
+    });
+    schema('', {name: undefined}).should.eql([
+      {
+        path: 'name',
+        value: undefined,
+        message: 'should be a string'
       }
     ]);
   });
