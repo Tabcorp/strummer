@@ -78,7 +78,7 @@ Some of the most common built-in matchers are
 - `s.enum(values)`
 - `s.func(arity)`
 
-You can find more examples for each matcher at [README-MATCHERS](#).
+You can find more examples for each matcher at [MATCHERS](https://github.com/rprieto/strummer/blob/master/README-MATCHERS.md).
 Each matcher might support both complex parameters and nice syntactic sugar.
 This is particularly true for arrays.
 
@@ -171,7 +171,7 @@ s({
 
 ## Should.js integration
 
-`Strummer` plays well with [should.js](#). For quick-and-easy validation
+`Strummer` plays well with [should.js](https://github.com/shouldjs/should.js). For quick-and-easy validation
 in your unit tests, you can use `have.structure` on entire objects.
 
 ```js
