@@ -79,6 +79,7 @@ Some of the most common built-in matchers are
 - `s.array(min, max, of)`
 - `s.string()`
 - `s.number(min, max)`
+- `s.integer(min, max)`
 - `s.boolean()`
 - `s.url()`
 - `s.isoDate()`
@@ -86,7 +87,7 @@ Some of the most common built-in matchers are
 - `s.enum(name, values, verbose)`
 - `s.func(arity)`
 
-They all come with [several usage examples](https://github.com/rprieto/strummer/blob/master/MATCHERS.md).
+They all come with [several usage examples](https://github.com/TabDigital/strummer/blob/master/MATCHERS.md).
 Matchers usually support both simple / complex usages, with nice syntactic sugar.
 
 ## A more complex example

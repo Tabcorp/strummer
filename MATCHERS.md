@@ -76,6 +76,17 @@ age: s.number()
 age: s.number({min: 0, max: 100})
 ```
 
+## integer
+
+```js
+// match any integer
+numberOfKids: 'integer'
+numberOfKids: s.integer()
+
+// optional min and max value
+numberOfKids: s.integer({min: 0, max: 100})
+```
+
 ## boolean
 
 ```js
