@@ -15,9 +15,9 @@ describe('number matcher', function() {
   });
 
   it('supports min and max', function() {
-    number({min: 3})('', 0).should.have.error(/should be above 3/);
-    number({max: 3})('', 5).should.have.error(/should be below 3/);
-    number({min: 3, max: 5})('', 7).should.have.error(/should be between 3 and 5/);
+    number({min: 3})('', 0).should.have.error(/should be a number >= 3/);
+    number({max: 3})('', 5).should.have.error(/should be a number <= 3/);
+    number({min: 3, max: 5})('', 7).should.have.error(/should be a number between 3 and 5/);
   });
 
 });

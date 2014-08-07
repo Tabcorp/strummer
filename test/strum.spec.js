@@ -87,7 +87,7 @@ describe('strum', function() {
     }).should.eql([{
       path: 'val',
       value: 5,
-      message: 'should be above 10'
+      message: 'should be a number >= 10'
     }]);
   });
 

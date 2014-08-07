@@ -16,9 +16,9 @@ describe('integer matcher', function() {
   });
 
   it('supports min and max', function() {
-    integer({min: 3})('', 0).should.have.error(/should be above 3/);
-    integer({max: 3})('', 5).should.have.error(/should be below 3/);
-    integer({min: 3, max: 5})('', 7).should.have.error(/should be between 3 and 5/);
+    integer({min: 3})('', 0).should.have.error(/should be an integer >= 3/);
+    integer({max: 3})('', 5).should.have.error(/should be an integer <= 3/);
+    integer({min: 3, max: 5})('', 7).should.have.error(/should be an integer between 3 and 5/);
   });
 
 });

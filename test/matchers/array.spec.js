@@ -86,7 +86,7 @@ describe('array matcher', function() {
     schema('path', ['bob', 'the', 'builder']).should.eql([{
       path: 'path',
       value: ['bob', 'the', 'builder'],
-      message: 'should have length between 1 and 2'
+      message: 'should have between 1 and 2 items'
     }]);
   });
 
