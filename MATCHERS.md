@@ -5,6 +5,7 @@
 - [func](#func)
 - [isoDate](#isoDate)
 - [number](#number)
+- [boolean](#boolean)
 - [object](#object)
 - [string](#string)
 - [uuid](#uuid)
@@ -69,10 +70,18 @@ updated: s.isoDate()
 ```js
 // match any number
 age: 'number'
-age s.number()
+age: s.number()
 
 // optional min and max value
-age s.number({min: 0, max: 100})
+age: s.number({min: 0, max: 100})
+```
+
+## boolean
+
+```js
+// match a boolean
+enabled: 'boolean'
+enabled: s.boolean()
 ```
 
 ## object

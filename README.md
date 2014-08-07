@@ -79,6 +79,7 @@ Some of the most common built-in matchers are
 - `s.array(min, max, of)`
 - `s.string()`
 - `s.number(min, max)`
+- `s.boolean()`
 - `s.url()`
 - `s.isoDate()`
 - `s.uuid(version)`
