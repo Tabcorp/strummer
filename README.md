@@ -78,16 +78,8 @@ Some of the most common built-in matchers are
 - `s.enum(values)`
 - `s.func(arity)`
 
-You can find more examples for each matcher at [MATCHERS](https://github.com/rprieto/strummer/blob/master/README-MATCHERS.md).
-Each matcher might support both complex parameters and nice syntactic sugar.
-This is particularly true for arrays.
-
-```js
-'array'
-s.array('number')
-s.array({max: 3, of: 'number'})
-s.array({max: 3, of: s.number({min: 5})})
-```
+They all come with [several usage examples](https://github.com/rprieto/strummer/blob/master/MATCHERS.md).
+Matchers usually support both simple / complex usages, with nice syntactic sugar.
 
 ## A more complex example
 
