@@ -152,4 +152,29 @@ describe('strummer', function() {
 
   });
 
+  it('can assert on a matcher being successful', function() {
+    var person = {
+      name: 3,
+      age: 'bob'
+    };
+    (function() {
+      s.assert(person, {
+        name: 'string',
+        age: 'number'
+      });
+    }).should.throw(/name should be a string \(was 3\)/)
+             .throw(/age should be a number \(was 'bob'\)/);
+  });
+
+  it('should stringify values when assertions fail', function() {
+    var person = {
+      name: { text: 'bob' }
+    };
+    (function() {
+      s.assert(person, {
+        name: 'string'
+      });
+    }).should.throw(/name should be a string \(was { text: 'bob' }\)/);
+  });
+
 });
