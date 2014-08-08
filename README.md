@@ -21,7 +21,7 @@
 - [Syntactic sugar](#syntactic-sugar)
 - [A more complex example](#a-more-complex-example)
 - [Defining custom matchers](#defining-custom-matchers)
-- [Should.js integration](#shouldjs-integration)
+- [Usage in unit tests](#usage-in-unit-tests)
 
 ## Getting started
 
@@ -171,19 +171,30 @@ s({
 })
 ```
 
-## Should.js integration
+## Usage in unit tests
 
-`Strummer` plays well with [should.js](https://github.com/shouldjs/should.js). For quick-and-easy validation
-in your unit tests, you can use `have.structure` on entire objects.
+The simplest way to assert on a given object structure is
+
+```js
+// name should be a string
+s.assert(name, 'string');
+
+// nicknames should be an array of strings
+s.assert(nicknames, ['string']);
+
+// person should have the given structure
+s.assert(person, {
+  name: 'string',
+  age: 'number'
+});
+```
+
+If you're using [should.js](https://github.com/shouldjs/should.js),
+you can also use the `have.structure` extension.
 
 ```js
 var should = require('should');
 require('strummer/should')(should);
-
-var person = {
-  name: 'bob',
-  age: 'foo'
-};
 
 person.should.have.structure({
   name: 'string',
