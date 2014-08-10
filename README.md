@@ -21,7 +21,7 @@
 - [Syntactic sugar](#syntactic-sugar)
 - [A more complex example](#a-more-complex-example)
 - [Defining custom matchers](#defining-custom-matchers)
-- [Usage in unit tests](#usage-in-unit-tests)
+- [Asserting on matchers](#asserting-on-matchers)
 
 ## Getting started
 
@@ -171,41 +171,30 @@ s({
 })
 ```
 
-## Usage in unit tests
+## Asserting on matchers
 
-The simplest way to assert on a given object structure is
+Matchers normally return the following structure:
 
 ```js
-// name should be a string
+[
+  { path: 'person.name', value: null, message: 'should be a string' }
+]
+```
+
+In some cases, you simply want to `throw` any errors - for example in the context of a unit test.
+Strummer provides the `s.assert` function for that purpose:
+
+```js
 s.assert(name, 'string');
+// name should be a string (but was null)
 
-// nicknames should be an array of strings
 s.assert(nicknames, ['string']);
+// name[2] should be a string (but was 123)
+// name[3] should be a string (but was 456)
 
-// person should have the given structure
 s.assert(person, {
   name: 'string',
-  age: 'number'
+  age: s.number({max: 200})
 });
-```
-
-If you're using [should.js](https://github.com/shouldjs/should.js),
-you can also use the `have.structure` extension.
-
-```js
-var should = require('should');
-require('strummer/should')(should);
-
-person.should.have.structure({
-  name: 'string',
-  age: 'number'
-});
-```
-
-This will fail the test with:
-
-```
-Expected {name: 'bob', age: 'foo'}
-to match a given structure, but failed because
-age should be a number (was 'foo')
+// person.age should be a number <= 200 (but was 250)
 ```
