@@ -7,6 +7,7 @@
 - [number](#number)
 - [boolean](#boolean)
 - [object](#object)
+- [regex](#regex)
 - [string](#string)
 - [uuid](#uuid)
 
@@ -127,6 +128,14 @@ person: {
     postcode: 'number'
   }
 }
+```
+
+## regex
+
+```js
+// match a given regex
+name: /^[a-z]+$/i
+name: s.regex(/^[a-z]+$/i)
 ```
 
 ## string

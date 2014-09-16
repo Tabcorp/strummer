@@ -69,4 +69,17 @@ describe('syntactic sugar', function() {
     }]);
   });
 
+  it('can use the regex litteral notation', function() {
+    var schema = s({
+      name: /^[a-z]+$/
+    });
+    schema({
+      name: 'Bob123',
+    }).should.eql([{
+      path: 'name',
+      value: 'Bob123',
+      message: 'should match the regex ^[a-z]+$'
+    }]);
+  });
+
 });
