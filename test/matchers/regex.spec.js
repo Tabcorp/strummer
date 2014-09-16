@@ -15,7 +15,7 @@ describe('regex matcher', function() {
   });
 
   it('fails if the regex does not match', function() {
-    regex(/[a-z]+/)('', '123').should.have.error('should match the regex [a-z]+');
+    regex(/[a-z]+/)('', '123').should.have.error('should match the regex /[a-z]+/');
   });
 
   it('fails for non string types', function() {

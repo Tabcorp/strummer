@@ -3,6 +3,7 @@
 - [array](#array)
 - [enum](#enum)
 - [func](#func)
+- [hashmap](#hashmap)
 - [isoDate](#isoDate)
 - [number](#number)
 - [boolean](#boolean)
@@ -54,6 +55,26 @@ cb: s.func()
 
 // match a function with 3 parameters
 cb: s.func({arity: 3})
+```
+
+## hashmap
+
+```js
+// only match the value type
+map: s.hashmap('number')
+map: s.hashmap(s.number({max: 10}))
+
+// match keys and value types
+map: s.hashmap({
+  keys: 'string'
+  values: 'number'
+})
+
+// or using more complex matchers
+map: s.hashmap({
+  keys: /^[a-z]{5}$/
+  values: s.array(s.number({max: 10}))
+})
 ```
 
 ## isoDate

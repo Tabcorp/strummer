@@ -78,7 +78,7 @@ describe('syntactic sugar', function() {
     }).should.eql([{
       path: 'name',
       value: 'Bob123',
-      message: 'should match the regex ^[a-z]+$'
+      message: 'should match the regex /^[a-z]+$/'
     }]);
   });
 
