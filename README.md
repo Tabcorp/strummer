@@ -20,6 +20,7 @@
 - [Getting started](#getting-started)
 - [Syntactic sugar](#syntactic-sugar)
 - [A more complex example](#a-more-complex-example)
+- [Optional values](#optional-values)
 - [Defining custom matchers](#defining-custom-matchers)
 - [Asserting on matchers](#asserting-on-matchers)
 
@@ -130,6 +131,25 @@ var person: s({
   age: age,
   home: address
 });
+```
+
+## Optional values
+
+By default, all matchers expect the value to exist.
+In other words every field is required in your schema definition.
+
+You can make a field optional by using the special `s.optional` matcher,
+which wraps any existing matcher.
+
+```js
+// wrapping a shorthand notation
+name: s.optional('string'),
+
+// wrapping an actual matcher
+age: s.optional(s.number({min: 1})),
+
+// wrapping a matcher defined somewhere else
+home: s.optional(address)
 ```
 
 ## Defining custom matchers
