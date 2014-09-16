@@ -79,6 +79,7 @@ Some of the most common built-in matchers are
 - `s.boolean()`
 - `s.enum(name, values, verbose)`
 - `s.func(arity)`
+- `s.hashmap(keys, values)`
 - `s.integer(min, max)`
 - `s.isoDate()`
 - `s.object(fields)`
