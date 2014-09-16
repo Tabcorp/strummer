@@ -10,7 +10,9 @@
   },
   "devDependencies": {
     "mocha": "~1.21.3",
-    "should": "~4.0.4"
+    "should": "~4.0.4",
+    "cli-table": "~0.3.0",
+    "format-number": "~1.0.2"
   },
   "dependencies": {
     "lodash": "~2.4.1",

@@ -23,6 +23,7 @@
 - [Optional values](#optional-values)
 - [Defining custom matchers](#defining-custom-matchers)
 - [Asserting on matchers](#asserting-on-matchers)
+- [A note on performance](#a-note-on-performance)
 
 ## Getting started
 
@@ -106,7 +107,7 @@ var person = s({
   address: {
     city: 'string',
     postcode: 'number'
-  }),
+  },
   nicknames: [{max: 3, of: 'string'}],
   phones: [{of: {
     type: s.enum({values: ['MOBILE', 'HOME']}),
@@ -219,4 +220,42 @@ s.assert(person, {
   age: s.number({max: 200})
 });
 // person.age should be a number <= 200 (but was 250)
+```
+
+## A note on performance
+
+The 2 main rules for performance are:
+
+- If you need to validate many objects of the same kind,
+you should declare matchers upfront and reuse them.
+
+- All syntactic sugar is processed at creation time.
+This means shorthand notations don't cause any performance overhead
+compared to their canonical equivalents.
+
+Of course, actual performance depends on the complexity of your matchers / objects.
+If you're interested in figures, some stats are printed as part of the unit test suite:
+
+```js
+s({
+  id: s.uuid({version: 4}),
+  name: 'string',
+  age: s.optional(s.number({min: 1, max: 100})),
+  addresses: s.array({of: {
+    type: 'string',
+    city: 'string',
+    postcode: 'number'
+  }}),
+  nicknames: [{max: 3, of: 'string'}],
+  phones: [{of: {
+    type: s.enum({values: ['MOBILE', 'HOME']}),
+    number: /^[0-9]{10}$/
+  }}]
+})
+
+// ┌───────────────────────┬─────────────────┐
+// │ Number of validations │ Total time (ms) │
+// ├───────────────────────┼─────────────────┤
+// │ 10,000                │ 294             │
+// └───────────────────────┴─────────────────┘
 ```
