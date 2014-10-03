@@ -90,4 +90,12 @@ describe('array matcher', function() {
     }]);
   });
 
+  it('cannot be called with a litteral object matcher inside', function() {
+    // because this would make of/min/max special keywords
+    // and we wouldn't support arrays of objects with these properties
+    (function() {
+      var schema = array({name: 'string'});
+    }).should.throw(/Invalid array matcher/);
+  });
+
 });
