@@ -96,6 +96,9 @@ age: s.number()
 
 // optional min and max value
 age: s.number({min: 0, max: 100})
+
+// optionally parse a string into a number e.g. "1"/"1.2"
+age: s.number({parse: true})
 ```
 
 ## integer
@@ -107,6 +110,9 @@ numberOfKids: s.integer()
 
 // optional min and max value
 numberOfKids: s.integer({min: 0, max: 100})
+
+// optionally parse a string into an integer e.g. "120"
+numberOfKids: s.integer({parse: true, min: 0, max: 100})
 ```
 
 ## boolean
@@ -115,6 +121,9 @@ numberOfKids: s.integer({min: 0, max: 100})
 // match a boolean
 enabled: 'boolean'
 enabled: s.boolean()
+
+// optionally parse a string into a boolean e.g. "true"/"false"
+enabled: s.boolean({parse: true})
 ```
 
 ## object

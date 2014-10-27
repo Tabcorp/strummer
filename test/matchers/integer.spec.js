@@ -21,4 +21,28 @@ describe('integer matcher', function() {
     integer({min: 3, max: 5})('', 7).should.have.error(/should be an integer between 3 and 5/);
   });
 
+  it('can parse integer from string', function() {
+    integer({parse: true})('', 0).should.not.have.error();
+    integer({parse: true})('', 3).should.not.have.error();
+    integer({parse: true})('', -1).should.not.have.error();
+    integer({parse: true})('', "0").should.not.have.error();
+    integer({parse: true})('', "3").should.not.have.error();
+    integer({parse: true})('', "-1").should.not.have.error();
+    integer({parse: true})('', "+4").should.not.have.error();
+  });
+
+  it('fails if cannot be parsed to integer', function() {
+    integer({parse: true})('', null).should.have.error(/should be an integer/);
+    integer({parse: true})('', undefined).should.have.error(/should be an integer/);
+    integer({parse: true})('', false).should.have.error(/should be an integer/);
+    integer({parse: true})('', true).should.have.error(/should be an integer/);
+    integer({parse: true})('', 1.2).should.have.error(/should be an integer/);
+    integer({parse: true})('', "1.2").should.have.error(/should be an integer/);
+    integer({parse: true})('', "hello").should.have.error(/should be an integer/);
+    integer({parse: true})('', {hello: 'world'}).should.have.error(/should be an integer/);
+    integer({parse: true})('', "4L").should.have.error(/should be an integer/);
+  });
+
+
+
 });
