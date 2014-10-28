@@ -10,6 +10,7 @@
 - [object](#object)
 - [regex](#regex)
 - [string](#string)
+- [url](#url)
 - [uuid](#uuid)
 
 ## array
@@ -174,6 +175,14 @@ name: s.regex(/^[a-z]+$/i)
 // match any string
 name: 'string'
 name: s.string()
+```
+
+## url
+
+```js
+//match a valid url
+address: 'url'
+address: s.url()
 ```
 
 ## uuid
