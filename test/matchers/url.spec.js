@@ -9,6 +9,7 @@ describe('url matcher', function() {
 
   it('matches urls', function() {
     url()('', 'http://www.google.com').should.not.have.error()
+    url()('', 'https://www.google.com').should.not.have.error()
     url()('', 'http://localhost:1234').should.not.have.error()
     url()('', 'http://www.google.com/path/hello%20world?query+string').should.not.have.error()
     url()('', 'http://user:pass@server').should.not.have.error()
