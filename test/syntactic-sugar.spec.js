@@ -56,6 +56,17 @@ describe('syntactic sugar', function() {
     }]);
   });
 
+  it('can use custom functions at the top-level', function() {
+    var schema = s(function(value) {
+      if (value % 2) return 'should be an even number';
+    });
+    schema(3).should.eql([{
+      path: '',
+      value: 3,
+      message: 'should be an even number'
+    }]);
+  });
+
   it('can use the array litteral notation', function() {
     var schema = s({
       names: ['string']

@@ -128,6 +128,26 @@ describe('strummer', function() {
     ]);
   });
 
+  it('matchers can return other matchers (nested)', function() {
+    var schema = s({
+      age: function(path, value) {
+        return function(path2, value2) {
+          return s.number();
+        };
+      }
+    });
+    schema({
+      age: 'foo'
+    }).should.eql([
+      {
+        path: 'age',
+        value: 'foo',
+        message: 'should be a number'
+      }
+    ]);
+  });
+
+
   it('can return dynamic matchers', function() {
 
     var schema = s({
