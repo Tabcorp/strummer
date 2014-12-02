@@ -1,12 +1,14 @@
 # Built-in matchers
 
 - [array](#array)
+- [boolean](#boolean)
+- [duration](#duration)
 - [enum](#enum)
 - [func](#func)
 - [hashmap](#hashmap)
+- [integer](#integer)
 - [isoDate](#isoDate)
 - [number](#number)
-- [boolean](#boolean)
 - [object](#object)
 - [regex](#regex)
 - [string](#string)
@@ -32,6 +34,27 @@ nicknames: s.array(s.number({min: 5}));
 nicknames: s.array({min: 3, of: 'number'})
 nicknames: s.array({max: 7, of: s.number({min: 5})})
 nicknames: s.array({max: 7, of: s.object({name: 'string'})})
+```
+
+## boolean
+
+```js
+// match a boolean
+enabled: 'boolean'
+enabled: s.boolean()
+
+// optionally parse a string into a boolean e.g. "true"/"false"
+enabled: s.boolean({parse: true})
+```
+
+## duration
+
+Match a duration in the following format: `10s`, `5m`, `24h`...
+
+```js
+timespan: 'duration'
+timespan: s.duration()
+timespan: s.duration({min: '10s', max: '5m'})
 ```
 
 ## enum
@@ -78,6 +101,20 @@ map: s.hashmap({
 })
 ```
 
+## integer
+
+```js
+// match any integer
+numberOfKids: 'integer'
+numberOfKids: s.integer()
+
+// optional min and max value
+numberOfKids: s.integer({min: 0, max: 100})
+
+// optionally parse a string into an integer e.g. "120"
+numberOfKids: s.integer({parse: true, min: 0, max: 100})
+```
+
 ## isoDate
 
 Match a date in ISO8601 format (string).
@@ -100,31 +137,6 @@ age: s.number({min: 0, max: 100})
 
 // optionally parse a string into a number e.g. "1"/"1.2"
 age: s.number({parse: true})
-```
-
-## integer
-
-```js
-// match any integer
-numberOfKids: 'integer'
-numberOfKids: s.integer()
-
-// optional min and max value
-numberOfKids: s.integer({min: 0, max: 100})
-
-// optionally parse a string into an integer e.g. "120"
-numberOfKids: s.integer({parse: true, min: 0, max: 100})
-```
-
-## boolean
-
-```js
-// match a boolean
-enabled: 'boolean'
-enabled: s.boolean()
-
-// optionally parse a string into a boolean e.g. "true"/"false"
-enabled: s.boolean({parse: true})
 ```
 
 ## object

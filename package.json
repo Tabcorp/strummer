@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "lodash": "~2.4.1",
-    "require-all": "0.0.8"
+    "require-all": "0.0.8",
+    "ms": "~0.7.0"
   }
 }
