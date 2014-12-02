@@ -79,7 +79,7 @@ Some of the most common built-in matchers are
 
 - `s.array(min, max, of)`
 - `s.boolean()`
-- `s.duration()`
+- `s.duration(min, max)`
 - `s.enum(name, values, verbose)`
 - `s.func(arity)`
 - `s.hashmap(keys, values)`
