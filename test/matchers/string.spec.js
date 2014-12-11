@@ -15,4 +15,11 @@ describe('string matcher', function() {
     string()('', 3.5).should.have.error(/should be a string/);
   });
 
+  it('supports min and max', function() {
+    string({min: 3})('', "he").should.have.error(/should be a string with length >= 3/);
+    string({max: 3})('', "hello").should.have.error(/should be a string with length <= 3/);
+    string({min: 3, max: 5})('', "hello world").should.have.error(/should be a string with length between 3 and 5/);
+    string({min: 3, max: 5})('', "hell").should.not.have.an.error();
+  });
+
 });
