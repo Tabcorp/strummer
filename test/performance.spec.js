@@ -45,7 +45,7 @@ describe('Performance', function() {
     run(table, 100);
     run(table, 1000);
     run(table, 10000);
-    console.log('\n' + table.toString() + '\n');
+    console.error('\n' + table.toString() + '\n');
   });
 
   function run(table, count) {

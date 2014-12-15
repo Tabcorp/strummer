@@ -1,4 +1,12 @@
-var should = require('should');
+var should     = require('should');
+var blanket    = require('blanket');
+var requireDir = require('require-dir');
+
+// only instrument the code if running test coverage
+if (process.env['BLANKET']) {
+  blanket({});
+  requireDir(__dirname + '/../lib', {recurse: true, duplicates: true});
+}
 
 should.Assertion.prototype.error = function(regex) {
   var found = this.obj.filter(function(err) {
