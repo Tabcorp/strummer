@@ -1,12 +1,11 @@
 {
   "name": "strummer",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "description": "Structural matching for JavaScript",
   "author": "Tabcorp Digital Technology Team",
   "license": "MIT",
   "main": "lib/index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "config": {
     "blanket": {
       "pattern": "lib",
