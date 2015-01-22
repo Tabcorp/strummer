@@ -1,4 +1,6 @@
 .gitignore
 .npmignore
 .travis.yml
+coverage.html
 test
+Makefile
