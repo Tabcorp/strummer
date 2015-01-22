@@ -13,7 +13,7 @@
       "data-cover-never": "node_modules"
     },
     "travis-cov": {
-      "threshold": 95
+      "threshold": 100
     }
   },
   "devDependencies": {

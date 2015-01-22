@@ -4,6 +4,15 @@ describe('enum matcher', function() {
 
   var valid = ['blue', 'red', 'green'];
 
+  it('fails to create the match if the arguments are invalid', function() {
+    (function() {
+      enumer({values: null});
+    }).should.throw('Invalid enum values: null');
+    (function() {
+      enumer({values: 'blue'});
+    }).should.throw('Invalid enum values: blue');
+  });
+
   it('matches from a list of values', function() {
     enumer({values: valid})('', 'blue').should.not.have.error();
     enumer({values: valid})('', 'red').should.not.have.error();

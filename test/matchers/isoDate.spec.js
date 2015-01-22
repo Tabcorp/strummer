@@ -20,4 +20,9 @@ describe('iso date matcher', function() {
     date()('', '2014-12-31 23:59').should.have.error(/should be a date in ISO8601 format/);
   });
 
+  it('does not match values that are not strings', function() {
+    date()('', 20141231).should.have.error(/should be a date in ISO8601 format/);
+    date()('', null).should.have.error(/should be a date in ISO8601 format/);
+  });
+
 });
