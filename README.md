@@ -81,6 +81,7 @@ Some of the most common built-in matchers are
 - `s.boolean()`
 - `s.duration(min, max)`
 - `s.enum(name, values, verbose)`
+- `s.exactObject(fields)`
 - `s.func(arity)`
 - `s.hashmap(keys, values)`
 - `s.integer(min, max)`
