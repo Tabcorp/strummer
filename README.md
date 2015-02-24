@@ -87,6 +87,7 @@ Some of the most common built-in matchers are
 - `s.isoDate()`
 - `s.number(min, max)`
 - `s.object(fields)`
+- `s.objectWithOnly(fields)`
 - `s.regex(reg)`
 - `s.string()`
 - `s.url()`

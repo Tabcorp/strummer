@@ -10,6 +10,7 @@
 - [isoDate](#isoDate)
 - [number](#number)
 - [object](#object)
+- [objectWithOnly](#objectWithOnly)
 - [regex](#regex)
 - [string](#string)
 - [url](#url)
@@ -171,6 +172,31 @@ person: {
     postcode: 'number'
   }
 }
+```
+
+## objectWithOnly
+
+Match an exact object.
+This matcher will not error if any optional properties are left out.
+This matcher will error if any extra properties are passed in.
+
+
+```js
+
+// match an object with given properties
+person: s.objectWithOnly({
+  name: 'string'
+  age: 'number'
+})
+
+// match a nested object
+person: s.objectWithOnly({
+  name: 'string'
+  address: s.objectWithOnly({
+    city: 'string'
+    postcode: 'number'
+  })
+})
 ```
 
 ## regex
