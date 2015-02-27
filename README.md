@@ -77,21 +77,21 @@ s.number({min:1, max:100})
 
 Some of the most common built-in matchers are
 
-- `s.array(min, max, of)`
+- `s.array({min, max, of})`
 - `s.boolean()`
-- `s.duration(min, max)`
-- `s.enum(name, values, verbose)`
-- `s.func(arity)`
-- `s.hashmap(keys, values)`
-- `s.integer(min, max)`
+- `s.duration({min, max})`
+- `s.enum({name, values, verbose})`
+- `s.func({arity})`
+- `s.hashmap({keys, values})`
+- `s.integer({min, max})`
 - `s.isoDate()`
-- `s.number(min, max)`
+- `s.number({min, max})`
 - `s.object(fields)`
 - `s.objectWithOnly(fields)`
 - `s.regex(reg)`
-- `s.string()`
+- `s.string({min, max})`
 - `s.url()`
-- `s.uuid(version)`
+- `s.uuid({version})`
 
 They all come with [several usage examples](https://github.com/TabDigital/strummer/blob/master/MATCHERS.md).
 Matchers usually support both simple / complex usages, with nice syntactic sugar.
