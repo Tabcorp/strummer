@@ -213,6 +213,9 @@ name: s.regex(/^[a-z]+$/i)
 // match any string
 name: 'string'
 name: s.string()
+
+// optional min and max value
+name: s.string({min: 2, max: 50})
 ```
 
 ## url
