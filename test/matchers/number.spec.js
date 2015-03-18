@@ -16,8 +16,25 @@ describe('number matcher', function() {
 
   it('supports min and max', function() {
     number({min: 3})('', 0).should.have.error(/should be a number >= 3/);
+    number({min: 0})('', -10).should.have.error(/should be a number >= 0/);
+    number({max: 0})('', 12).should.have.error(/should be a number <= 0/);
     number({max: 3})('', 5).should.have.error(/should be a number <= 3/);
     number({min: 3, max: 5})('', 7).should.have.error(/should be a number between 3 and 5/);
+  });
+
+  it('fails for invalid min or max values', function(){
+    var shouldFail = function(val) {
+      (function(){
+        number({min: val});
+      }).should.throw('Invalid minimum option: ' + val);
+
+      (function(){
+        number({max: val});
+      }).should.throw('Invalid maximum option: ' + val);
+    }
+
+    var invalidValues = ['a', '', {}, []];
+    invalidValues.forEach(shouldFail);
   });
 
   it('can parse string into number', function() {
