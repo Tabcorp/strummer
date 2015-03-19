@@ -19,6 +19,23 @@ describe('integer matcher', function() {
     integer({min: 3})('', 0).should.have.error(/should be an integer >= 3/);
     integer({max: 3})('', 5).should.have.error(/should be an integer <= 3/);
     integer({min: 3, max: 5})('', 7).should.have.error(/should be an integer between 3 and 5/);
+    integer({min: 0})('', -10).should.have.error(/should be an integer >= 0/);
+    integer({max: 0})('', 3).should.have.error(/should be an integer <= 0/);
+  });
+
+  it('fails for invalid min or max values', function(){
+    var shouldFail = function(val) {
+      (function(){
+        integer({min: val});
+      }).should.throw('Invalid minimum option: ' + val);
+
+      (function(){
+        integer({max: val});
+      }).should.throw('Invalid maximum option: ' + val);
+    }
+
+    var invalidValues = ['a', '', {}, []];
+    invalidValues.forEach(shouldFail);
   });
 
   it('can parse integer from string', function() {
