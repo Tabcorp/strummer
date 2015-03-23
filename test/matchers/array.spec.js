@@ -98,4 +98,11 @@ describe('array matcher', function() {
     }).should.throw(/Invalid array matcher/);
   });
 
+  it('handles falsy return values from value matchers', function() {
+    var valueMatcher = function(path, value) {};
+    array({
+      of: valueMatcher
+    })('path', ['bob', 'the', 'builder']).should.eql([])
+  });
+
 });
