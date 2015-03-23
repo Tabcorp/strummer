@@ -67,6 +67,15 @@ describe('hashmap matcher', function() {
       ]);
     });
 
+    it('handles falsy return values from value matchers', function() {
+      var valueMatcher = function(path, value) {};
+      hashmap({
+        values: valueMatcher
+      })('x', {
+        foo: 'bar',
+      }).should.eql([])
+    });
+
   });
 
 });
