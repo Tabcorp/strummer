@@ -120,4 +120,13 @@ describe('object matcher', function() {
       }]);
     });
 
+    it('handles falsy return values from value matchers', function() {
+      var valueMatcher = function(path, value) {};
+      object({
+        name: valueMatcher
+      })('', {
+        name: 'bob'
+      }).should.eql([])
+    });
+
 });

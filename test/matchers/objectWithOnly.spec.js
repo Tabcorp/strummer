@@ -113,5 +113,14 @@ describe('objectWithOnly object matcher', function() {
       message: 'should not exist'
     }])
   })
+
+  it('handles falsy return values from value matchers', function() {
+    var valueMatcher = function(path, value) {};
+    objectWithOnly({
+      name: valueMatcher
+    })('', {
+      name: 'bob'
+    }).should.eql([])
+  });
   
 });
