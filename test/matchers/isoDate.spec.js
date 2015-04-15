@@ -16,8 +16,8 @@ describe('iso date matcher', function() {
   });
 
   it('does not match other date strings', function() {
-    date()('', '31-12-2014').should.have.error(/should be a date in ISO8601 format/);
-    date()('', '2014-12-31 23:59').should.have.error(/should be a date in ISO8601 format/);
+    date()('', '31-12-2014').should.have.error(/should be a date with time in ISO8601 format/);
+    date()('', '2014-12-31 23:59').should.have.error(/should be a date with time in ISO8601 format/);
   });
 
   it('does not match values that are not strings', function() {
@@ -25,4 +25,15 @@ describe('iso date matcher', function() {
     date()('', null).should.have.error(/should be a date in ISO8601 format/);
   });
 
+  it("matches just the date if that's all is requested", function() {
+    date({time: false})('', '2999-12-31').should.not.have.error();
+  });
+
+  it("does not match invalid dates when the time is not required", function() {
+    date({time: false})('', '2999/12/31').should.have.error(/should be a date in ISO8601 format/);
+  });
+
+  it('respects the time flag if explicitly used', function() {
+    date({time: true})('', '2999-12-31').should.have.error(/should be a date with time in ISO8601 format/);
+  });
 });
