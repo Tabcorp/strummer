@@ -46,7 +46,7 @@ var person = s({
   nicknames: ['string']
 });
 
-console.log(person(bob));
+console.log(person.match(bob));
 
 // [
 //   { path: 'name', value: null, message: 'should be a string' }
@@ -59,25 +59,25 @@ console.log(person(bob));
 The example above is actually syntactic sugar for:
 
 ```js
-var person = s({
-  name: s.string(),
-  age: s.number(),
-  address: s.object({
-    city: s.string(),
-    postcode: s.number()
+var person = new s.object({
+  name: new s.string(),
+  age: new s.number(),
+  address: new s.object({
+    city: new s.string(),
+    postcode: new s.number()
   }),
-  nicknames: s.array({of: s.string()})
+  nicknames: new s.array({of: new s.string()})
 });
 ```
 
-This means all matchers are actually functions,
+This means all matchers are actually instances of `s.Matcher`,
 and can potentially take extra parameters.
 
 ```js
-s.number({min:1, max:100})
+new s.number({min:1, max:100})
 ```
 
-Some of the most common built-in matchers are
+Built-in matchers include(all classes)
 
 - `s.array({min, max, of})`
 - `s.boolean()`
@@ -104,17 +104,17 @@ Here's an example that mixes nested objects, arrays,
 and matches on different types with extra options.
 
 ```js
-var person = s({
-  id: s.uuid({version: 4}),
+var person = new s.object({
+  id: new s.uuid({version: 4}),
   name: 'string',
-  age: s.number({min: 1, max: 100}),
+  age: new s.number({min: 1, max: 100}),
   address: {
     city: 'string',
     postcode: 'number'
   },
   nicknames: [{max: 3, of: 'string'}],
   phones: [{of: {
-    type: s.enum({values: ['MOBILE', 'HOME']}),
+    type: new s.enum({values: ['MOBILE', 'HOME']}),
     number: 'number'
   }}]
 });
@@ -124,14 +124,14 @@ You can of course extract matchers to reuse them,
 or to make the hierarchy more legible.
 
 ```js
-var age = s.number({min: 1, max: 100})
+var age = new s.number({min: 1, max: 100})
 
-var address = {
+var address = new s.object({
   city: 'string',
   postcode: 'number'
-};
+});
 
-var person: s({
+var person = new s.object({
   name: 'string',
   age: age,
   home: address
@@ -143,64 +143,66 @@ var person: s({
 By default, all matchers expect the value to exist.
 In other words every field is required in your schema definition.
 
-You can make a field optional by using the special `s.optional` matcher,
-which wraps any existing matcher.
+You can make a field optional by using the special `{optional: true}` argument.,
 
 ```js
-// wrapping a shorthand notation
-name: s.optional('string'),
-
-// wrapping an actual matcher
-age: s.optional(s.number({min: 1})),
-
-// wrapping a matcher defined somewhere else
-home: s.optional(address)
+new s.number({optional: true, min: 1})
 ```
 
 ## Defining custom matchers
 
-Matchers are functions that return one or more errors for a given value.
-The canonical form is:
+To define a customer matcher, simply inherit the `s.Matcher` prototype
+and implement the `_match` function.
 
 ```js
-function myMatcher(opts) {
-  return function(path, value) {
-    if (/* the value is not right */) {
-      return [{
-        path: 'some.field',
-        value: 'hello',
-        message: 'should be different'
-      }];
-    }
-  };
+var s = require('strummer');
+
+function MyMatcher(opts) {
+  s.Matcher.call(this, opts);
 }
+
+util.inherits(MyMatcher, s.Matcher);
+
+MyMatcher.prototype._match = function(path, value) {
+  // if this is a leaf matcher, we only care about the current value
+  return null;
+  return 'should be a string starting with ABC';
+  // if this matcher has children, we need to return an array of errors;
+  return [];
+  return [
+    { path: path + '[0]', value: value[0], message: 'should be > 10' }
+    { path: path + '[1]', value: value[1], message: 'should be > 20' }
+  ]
+};
 ```
 
-In most cases though, you won't need to report a different `path` or `value` from the ones that are passed in.
-These simpler matchers can be defined as:
+Or you can use the helper function to create it:
 
 ```js
-function myMatcher(opts) {
-  return s(function(value) {
-    if (/* the value is not right */) {
-      return 'should be different';
-    }
-  });
-}
+var MyMatcher = s.createMatcher({
+  initialize: function() {
+    // initialize here
+    // you can use "this" to store local data
+  },
+  match: function(path, value) {
+    // validate here
+    // you can also use "this"
+  }
+});
 ```
 
 You can use these matchers like any of the built-in ones.
 
 ```js
-s({
+new s.object({
   name: 'string',
-  id: myMatcher({max: 3})
+  id: new MyMatcher({max: 3})
 })
 ```
 
 ## Asserting on matchers
 
-Matchers normally return the following structure:
+Matchers always return the following structure:
 
 ```js
 [
@@ -208,7 +210,7 @@ Matchers normally return the following structure:
 ]
 ```
 
-In some cases, you simply want to `throw` any errors - for example in the context of a unit test.
+In some cases, you might just want to `throw` an error - for example in the context of a unit test.
 Strummer provides the `s.assert` function for that purpose:
 
 ```js
@@ -221,7 +223,7 @@ s.assert(nicknames, ['string']);
 
 s.assert(person, {
   name: 'string',
-  age: s.number({max: 200})
+  age: new s.number({max: 200})
 });
 // person.age should be a number <= 200 (but was 250)
 ```
@@ -241,18 +243,18 @@ Of course, actual performance depends on the complexity of your matchers / objec
 If you're interested in figures, some stats are printed as part of the unit test suite:
 
 ```js
-s({
-  id: s.uuid({version: 4}),
+new s.object({
+  id: new s.uuid({version: 4}),
   name: 'string',
-  age: s.optional(s.number({min: 1, max: 100})),
-  addresses: s.array({of: {
+  age: new s.number({optional: true, min: 1, max: 100}),
+  addresses: new s.array({of: {
     type: 'string',
     city: 'string',
     postcode: 'number'
   }}),
   nicknames: [{max: 3, of: 'string'}],
   phones: [{of: {
-    type: s.enum({values: ['MOBILE', 'HOME']}),
+    type: new s.enum({values: ['MOBILE', 'HOME']}),
     number: /^[0-9]{10}$/
   }}]
 })
@@ -260,6 +262,6 @@ s({
 // ┌───────────────────────┬─────────────────┐
 // │ Number of validations │ Total time (ms) │
 // ├───────────────────────┼─────────────────┤
-// │ 10,000                │ 294             │
+// │ 10,000                │ 85              │
 // └───────────────────────┴─────────────────┘
 ```

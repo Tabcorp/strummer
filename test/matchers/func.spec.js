@@ -7,22 +7,22 @@ describe('func matcher', function() {
   function two(a, b)  {}
 
   it('matches functions', function() {
-    func()('', zero).should.not.have.error();
-    func()('', one).should.not.have.error();
+    new func().match('', zero).should.not.have.error();
+    new func().match('', one).should.not.have.error();
   });
 
   it('rejects anything else', function() {
-    func()('', 123).should.have.error(/should be a function/);
-    func()('', 'foo').should.have.error(/should be a function/);
+    new func().match('', 123).should.have.error(/should be a function/);
+    new func().match('', 'foo').should.have.error(/should be a function/);
   });
 
   it('can specify the arity', function() {
-    func({arity: 0})('', zero).should.not.have.error();
-    func({arity: 1})('', one).should.not.have.error();
-    func({arity: 2})('', two).should.not.have.error();
-    func({arity: 0})('', one).should.have.error(/should be a function with 0 parameters/);
-    func({arity: 1})('', two).should.have.error(/should be a function with 1 parameter/);
-    func({arity: 2})('', zero).should.have.error(/should be a function with 2 parameters/);
+    new func({arity: 0}).match('', zero).should.not.have.error();
+    new func({arity: 1}).match('', one).should.not.have.error();
+    new func({arity: 2}).match('', two).should.not.have.error();
+    new func({arity: 0}).match('', one).should.have.error(/should be a function with 0 parameters/);
+    new func({arity: 1}).match('', two).should.have.error(/should be a function with 1 parameter/);
+    new func({arity: 2}).match('', zero).should.have.error(/should be a function with 2 parameters/);
   });
 
 });

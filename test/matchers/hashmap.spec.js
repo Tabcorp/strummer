@@ -1,35 +1,38 @@
-var s       = require('../../lib/s');
+var s       = require('../../lib/strummer');
 var hashmap = require('../../lib/matchers/hashmap');
+var Matcher = require('../../lib/matcher');
 
 describe('hashmap matcher', function() {
 
   var OBJ = {one: 1, two: 2};
 
   it('should be an object', function() {
-    hashmap()('x', true).should.have.error('should be a hashmap');
+    new hashmap().match('x', true).should.have.error('should be a hashmap');
   });
 
   describe('key and value types', function() {
 
     it('matches keys', function() {
-      hashmap({keys: s.string()})('x', OBJ).should.not.have.error();
-      hashmap({keys: s.regex(/n/)})('x', OBJ).should.eql([
+      new hashmap({
+        keys: new s.string()
+      }).match('x', OBJ).should.not.have.error();
+      new hashmap({keys: new s.regex(/n/)}).match('x', OBJ).should.eql([
         {path: 'x.keys[1]', value: 'two', message: 'should match the regex /n/'},
       ])
     });
 
     it('matches values', function() {
-      hashmap({values: s.number()})('x', OBJ).should.not.have.error();
-      hashmap({values: s.number({max: 1})})('x', OBJ).should.eql([
+      new hashmap({values: new s.number()}).match('x', OBJ).should.not.have.error();
+      new hashmap({values: new s.number({max: 1})}).match('x', OBJ).should.eql([
         {path: 'x[two]', value: 2, message: 'should be a number <= 1'}
       ]);
     });
 
     it('matches both keys and value types', function() {
-      hashmap({
+      new hashmap({
         keys: /n/,
-        values: s.number({max: 1})
-      })('x', OBJ).should.eql([
+        values: new s.number({max: 1})
+      }).match('x', OBJ).should.eql([
         {path: 'x.keys[1]', value: 'two', message: 'should match the regex /n/'},
         {path: 'x[two]', value: 2, message: 'should be a number <= 1'}
       ]);
@@ -41,10 +44,10 @@ describe('hashmap matcher', function() {
   describe('syntactic sugar', function() {
 
     it('accepts primitive keys and value types', function() {
-      hashmap({
+      new hashmap({
         keys: /n/,
         values: 'boolean'
-      })('x', OBJ).should.eql([
+      }).match('x', OBJ).should.eql([
         {path: 'x.keys[1]', value: 'two', message: 'should match the regex /n/'},
         {path: 'x[one]', value: 1, message: 'should be a boolean'},
         {path: 'x[two]', value: 2, message: 'should be a boolean'}
@@ -52,26 +55,29 @@ describe('hashmap matcher', function() {
     });
 
     it('can specify just the value type', function() {
-      hashmap(s.number())('x', OBJ).should.not.have.error();
-      hashmap(s.boolean())('x', OBJ).should.eql([
+      new hashmap(new s.number()).match('x', OBJ).should.not.have.error();
+      new hashmap(new s.boolean()).match('x', OBJ).should.eql([
         {path: 'x[one]', value: 1, message: 'should be a boolean'},
         {path: 'x[two]', value: 2, message: 'should be a boolean'}
       ]);
     });
 
     it('can specify just the value type as a string', function() {
-      hashmap('number')('x', OBJ).should.not.have.error();
-      hashmap('boolean')('x', OBJ).should.eql([
+      new hashmap('number').match('x', OBJ).should.not.have.error();
+      new hashmap('boolean').match('x', OBJ).should.eql([
         {path: 'x[one]', value: 1, message: 'should be a boolean'},
         {path: 'x[two]', value: 2, message: 'should be a boolean'}
       ]);
     });
 
     it('handles falsy return values from value matchers', function() {
-      var valueMatcher = function(path, value) {};
-      hashmap({
+      var valueMatcher = {
+        match: function() {},
+        __proto__: new Matcher({})
+      };
+      new hashmap({
         values: valueMatcher
-      })('x', {
+      }).match('x', {
         foo: 'bar',
       }).should.eql([])
     });

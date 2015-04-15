@@ -1,16 +1,18 @@
+require('../../lib/strummer');
 var object = require('../../lib/matchers/object');
 var string = require('../../lib/matchers/string');
 var number = require('../../lib/matchers/number');
+var Matcher = require('../../lib/matcher');
 
 describe('object matcher', function() {
 
     it('rejects null values', function() {
-      var schema = object({
-        name: string(),
-        age:  number()
+      var schema = new object({
+        name: new string(),
+        age:  new number()
       });
 
-      schema('path.to.something', null).should.eql([{
+      schema.match('path.to.something', null).should.eql([{
         path: 'path.to.something',
         value: null,
         message: 'should be an object'
@@ -18,12 +20,12 @@ describe('object matcher', function() {
     });
 
     it('rejects anything that isnt an object', function() {
-      var schema = object({
-        name: string(),
-        age:  number()
+      var schema = new object({
+        name: new string(),
+        age: new number()
       });
 
-      schema('', 'bob').should.eql([{
+      schema.match('', 'bob').should.eql([{
         path: '',
         value: 'bob',
         message: 'should be an object'
@@ -31,12 +33,12 @@ describe('object matcher', function() {
     });
 
     it('validates flat objects', function() {
-      var schema = object({
-        name: string(),
-        age:  number()
+      var schema = new object({
+        name: new string(),
+        age: new  number()
       });
 
-      schema('', {
+      schema.match('', {
         name: 'bob',
         age: 'foo'
       }).should.eql([{
@@ -47,12 +49,12 @@ describe('object matcher', function() {
     });
 
     it('prepends the root path to the error path', function() {
-      var schema = object({
-        name: string(),
-        age:  number()
+      var schema = new object({
+        name: new string(),
+        age: new number()
       });
 
-      schema('root', {
+      schema.match('root', {
         name: 'bob',
         age: 'foo'
       }).should.eql([{
@@ -63,16 +65,16 @@ describe('object matcher', function() {
     });
 
     it('validates nested objects', function() {
-      var schema = object({
-        name: string(),
+      var schema = new object({
+        name: new string(),
         address: {
-          street: string(),
-          city: string(),
-          postcode: number()
+          street: new string(),
+          city: new string(),
+          postcode: new number()
         }
       });
 
-      schema('', {
+      schema.match('', {
         name: 'bob',
         address: {
           street: 'Pitt St',
@@ -92,7 +94,7 @@ describe('object matcher', function() {
 
 
     it('supports syntactic sugar by calling s() on each matcher', function() {
-      var schema = object({
+      var schema = new object({
         name: 'string',
         address: {
           street: 'string',
@@ -101,7 +103,7 @@ describe('object matcher', function() {
         }
       });
 
-      schema('', {
+      schema.match('', {
         name: 'bob',
         address: {
           street: 'Pitt St',
@@ -121,10 +123,14 @@ describe('object matcher', function() {
     });
 
     it('handles falsy return values from value matchers', function() {
-      var valueMatcher = function(path, value) {};
-      object({
+      var valueMatcher = {
+        __proto__: new Matcher({}),
+        match: function(path, sth) {}
+      };
+
+      new object({
         name: valueMatcher
-      })('', {
+      }).match('', {
         name: 'bob'
       }).should.eql([])
     });

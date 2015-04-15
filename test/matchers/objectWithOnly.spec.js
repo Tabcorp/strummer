@@ -2,23 +2,24 @@ var objectWithOnly  = require('../../lib/matchers/objectWithOnly');
 var array           = require('../../lib/matchers/array');
 var string          = require('../../lib/matchers/string');
 var number          = require('../../lib/matchers/number');
-var s               = require('../../lib/s');
+var optional        = require('../../lib/matchers/optional');
+var Matcher         = require('../../lib/matcher');
 
 describe('objectWithOnly object matcher', function() {
 
   it('cannot be called with anything but an object matcher', function() {
     (function() {
-      var schema = objectWithOnly('string');
+      var schema = new objectWithOnly('string');
     }).should.throw(/Invalid argument/);
   });
 
   it('returns error if the object matcher returns one', function() {
-    var schema = objectWithOnly({
-      name: string(),
-      age:  number()
+    var schema = new objectWithOnly({
+      name: new string(),
+      age:  new number()
     });
 
-    schema('', 'bob').should.eql([{
+    schema.match('', 'bob').should.eql([{
       path: '',
       value: 'bob',
       message: 'should be an object'
@@ -26,30 +27,30 @@ describe('objectWithOnly object matcher', function() {
   });
 
   it('matches objects', function() {
-    var schema = objectWithOnly({
-      name: string(),
-      age:  number()
+    var schema = new objectWithOnly({
+      name: new string(),
+      age:  new number()
     });
 
-    schema('', {name: 'bob', age: 21}).should.not.have.error();
+    schema.match('', {name: 'bob', age: 21}).should.not.have.error();
   });
 
   it('allows missing keys if they are optional', function() {
-    var schema = objectWithOnly({
-      name: s.optional('string'),
-      age:  number()
+    var schema = new objectWithOnly({
+      name: new optional('string'),
+      age:  new number()
     });
 
-    schema('', {age: 21}).should.not.have.error();
+    schema.match('', {age: 21}).should.not.have.error();
   });
 
   it('rejects if there are extra keys', function() {
-    var schema = objectWithOnly({
-      name: string(),
-      age:  number()
+    var schema = new objectWithOnly({
+      name: new string(),
+      age:  new number()
     });
 
-    schema('', {name: 'bob', age: 21, email: "bob@email.com"}).should.eql([{
+    schema.match('', {name: 'bob', age: 21, email: "bob@email.com"}).should.eql([{
       path: 'email',
       value: "bob@email.com",
       message: 'should not exist'
@@ -57,11 +58,11 @@ describe('objectWithOnly object matcher', function() {
   });
 
   it('should not validate nested objects', function() {
-    var schema = objectWithOnly({
-      name: string(),
-      age:  number(),
+    var schema = new objectWithOnly({
+      name: new string(),
+      age:  new number(),
       address: {
-        email: string()
+        email: new string()
       }
     });
 
@@ -74,17 +75,17 @@ describe('objectWithOnly object matcher', function() {
       }
     }
 
-    schema('', bob).should.not.have.error()
+    schema.match('', bob).should.not.have.error()
   });
 
   it('can be used within nested objects and arrays', function() {
-    var schema = objectWithOnly({
+    var schema = new objectWithOnly({
       name: 'string',
-      firstBorn: objectWithOnly({
+      firstBorn: new objectWithOnly({
         name: 'string',
         age: 'number'
       }),
-      address: array({of: objectWithOnly({
+      address: new array({of: new objectWithOnly({
         city: 'string',
         postcode: 'number'
       })})
@@ -103,7 +104,7 @@ describe('objectWithOnly object matcher', function() {
         street: 'watt st'
       }]
     }
-    schema('', bob).should.eql([{
+    schema.match('', bob).should.eql([{
       path: 'firstBorn.email',
       value: 'jane@bobismydad.com',
       message: 'should not exist'
@@ -115,10 +116,14 @@ describe('objectWithOnly object matcher', function() {
   })
 
   it('handles falsy return values from value matchers', function() {
-    var valueMatcher = function(path, value) {};
-    objectWithOnly({
+    var valueMatcher = {
+      __proto__: new Matcher({}),
+      match: function() {}
+    };
+
+    new objectWithOnly({
       name: valueMatcher
-    })('', {
+    }).match('', {
       name: 'bob'
     }).should.eql([])
   });

@@ -1,10 +1,10 @@
-var s = require('../lib/index');
+var s = require('../lib/strummer');
 
 describe('syntactic sugar', function() {
 
   it('can use the matchers name instead of the function', function() {
     var schema = s('string');
-    schema(3).should.eql([{
+    schema.match(3).should.eql([{
       path: '',
       value: 3,
       message: 'should be a string'
@@ -13,10 +13,10 @@ describe('syntactic sugar', function() {
 
   it('can use object litterals instead of the object matcher', function() {
     var schema = s({
-      name: s.string(),
-      age:  s.number()
+      name: new s.string(),
+      age: new s.number()
     });
-    schema({
+    schema.match({
       name: 'bob',
       age: 'foo'
     }).should.eql([{
@@ -31,7 +31,7 @@ describe('syntactic sugar', function() {
       name: 'string',
       age:  'number'
     });
-    schema({
+    schema.match({
       name: 'bob',
       age: 'foo'
     }).should.eql([{
@@ -41,37 +41,11 @@ describe('syntactic sugar', function() {
     }]);
   });
 
-  it('can use custom functions directly', function() {
-    var schema = s({
-      number:  function(value) {
-        if (value % 2) return 'should be an even number';
-      }
-    });
-    schema({
-      number: 3,
-    }).should.eql([{
-      path: 'number',
-      value: 3,
-      message: 'should be an even number'
-    }]);
-  });
-
-  it('can use custom functions at the top-level', function() {
-    var schema = s(function(value) {
-      if (value % 2) return 'should be an even number';
-    });
-    schema(3).should.eql([{
-      path: '',
-      value: 3,
-      message: 'should be an even number'
-    }]);
-  });
-
   it('can use the array litteral notation', function() {
     var schema = s({
       names: ['string']
     });
-    schema({
+    schema.match({
       names: ['hello', 123],
     }).should.eql([{
       path: 'names[1]',
@@ -84,7 +58,7 @@ describe('syntactic sugar', function() {
     var schema = s({
       name: /^[a-z]+$/
     });
-    schema({
+    schema.match({
       name: 'Bob123',
     }).should.eql([{
       path: 'name',
