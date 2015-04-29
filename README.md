@@ -2,11 +2,13 @@
 
 > Structural-matching for JavaScript.
 
-[![NPM](http://img.shields.io/npm/v/strummer.svg?style=flat)](https://npmjs.org/package/strummer)
-[![License](http://img.shields.io/npm/l/strummer.svg?style=flat)](https://github.com/TabDigital/strummer)
+[![NPM](http://img.shields.io/npm/v/strummer.svg?style=flat-square)](https://npmjs.org/package/strummer)
+[![License](http://img.shields.io/npm/l/strummer.svg?style=flat-square)](https://github.com/TabDigital/strummer)
 
-[![Build Status](http://img.shields.io/travis/TabDigital/strummer.svg?style=flat)](http://travis-ci.org/TabDigital/strummer)
-[![Dependencies](http://img.shields.io/david/TabDigital/strummer.svg?style=flat)](https://david-dm.org/TabDigital/strummer)
+[![Build Status](http://img.shields.io/travis/TabDigital/strummer.svg?style=flat-square)](http://travis-ci.org/TabDigital/strummer)
+[![Test coverage](https://img.shields.io/badge/coverage-100%-brightgreen.svg?style=flat-square)](http://travis-ci.org/TabDigital/strummer)
+
+[![Dependencies](http://img.shields.io/david/TabDigital/strummer.svg?style=flat-square)](https://david-dm.org/TabDigital/strummer)
 [![Dev dependencies](http://img.shields.io/david/dev/TabDigital/strummer.svg?style=flat)](https://david-dm.org/TabDigital/strummer)
 
 ## Main uses cases
