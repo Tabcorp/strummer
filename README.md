@@ -9,7 +9,7 @@
 [![Test coverage](https://img.shields.io/badge/coverage-100%-brightgreen.svg?style=flat-square)](http://travis-ci.org/TabDigital/strummer)
 
 [![Dependencies](http://img.shields.io/david/TabDigital/strummer.svg?style=flat-square)](https://david-dm.org/TabDigital/strummer)
-[![Dev dependencies](http://img.shields.io/david/dev/TabDigital/strummer.svg?style=flat)](https://david-dm.org/TabDigital/strummer)
+[![Dev dependencies](http://img.shields.io/david/dev/TabDigital/strummer.svg?style=flat-square)](https://david-dm.org/TabDigital/strummer)
 
 ## Main uses cases
 
