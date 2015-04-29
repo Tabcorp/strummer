@@ -1,21 +1,24 @@
 var Table  = require('cli-table');
 var format = require('format-number');
-var s      = require('../lib/s');
+var s = require('../lib/strummer');
 
 describe('Performance', function() {
 
-  var schema = s({
-    id: s.uuid({version: 4}),
+  this.slow(1000);
+  this.timeout(2000);
+
+  var schema = new s.object({
+    id: new s.uuid({version: 4}),
     name: 'string',
-    age: s.optional(s.number({min: 1, max: 100})),
-    addresses: s.array({of: {
+    age: new s.number({optional: true, min: 1, max: 100}),
+    addresses: new s.array({of: {
       type: 'string',
       city: 'string',
       postcode: 'number'
     }}),
     nicknames: [{max: 3, of: 'string'}],
     phones: [{of: {
-      type: s.enum({values: ['MOBILE', 'HOME']}),
+      type: new s.enum({values: ['MOBILE', 'HOME']}),
       number: /^[0-9]{10}$/
     }}]
   });
@@ -52,14 +55,14 @@ describe('Performance', function() {
   function run(table, count) {
     var start = new Date();
     for (var i = 0; i < count; ++i) {
-      var errors = schema(invalidObject);
+      var errors = schema.match('', invalidObject);
     }
     var end = new Date();
     table.push([format()(count), end-start]);
   }
 
   function verifyResults() {
-    var errors = schema(invalidObject);
+    var errors = schema.match('', invalidObject);
     errors.should.eql(
       [{
         path: 'addresses[1].postcode',

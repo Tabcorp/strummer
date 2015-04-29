@@ -1,12 +1,17 @@
-var s = require('../lib/index');
+var s = require('../lib/strummer');
 
 describe('strummer', function() {
+  it('throws error when passing a empty definition', function() {
+    (function() {
+      s();
+    }).should.throw();
+  });
 
   it('passes null values to the matchers', function() {
     var schema = s({
-      name: s.string()
+      name: new s.string()
     });
-    schema({
+    schema.match({
       name: null
     }).should.eql([
       {
@@ -19,9 +24,9 @@ describe('strummer', function() {
 
   it('can handle a null obj', function() {
     var schema = s({
-      name: s.string()
+      name: new s.string()
     });
-    schema('path', null).should.eql([
+    schema.match('path', null).should.eql([
       {
         path: 'path',
         value: null,
@@ -32,9 +37,9 @@ describe('strummer', function() {
 
   it('can handle an undefined obj', function() {
     var schema = s({
-      name: s.string()
+      name: new s.string()
     });
-    schema('path', undefined).should.eql([
+    schema.match('path', undefined).should.eql([
       {
         path: 'path',
         value: undefined,
@@ -45,9 +50,9 @@ describe('strummer', function() {
 
   it('can handle null values', function() {
     var schema = s({
-      name: s.string()
+      name: new s.string()
     });
-    schema('', {name: null}).should.eql([
+    schema.match('', {name: null}).should.eql([
       {
         path: 'name',
         value: null,
@@ -58,9 +63,9 @@ describe('strummer', function() {
 
   it('can handle undefined values', function() {
     var schema = s({
-      name: s.string()
+      name: new s.string()
     });
-    schema('', {name: undefined}).should.eql([
+    schema.match('', {name: undefined}).should.eql([
       {
         path: 'name',
         value: undefined,
@@ -71,18 +76,18 @@ describe('strummer', function() {
 
   it('can specify a matcher is optional', function() {
     var schema = s({
-      name: s.optional(s.string())
+      name: new s.optional(new s.string())
     });
-    schema({
+    schema.match({
       name: null
     }).should.eql([]);
   });
 
   it('passes options to the matchers', function() {
     var schema = s({
-      val: s.number({min: 10})
+      val: new s.number({min: 10})
     });
-    schema({
+    schema.match({
       val: 5
     }).should.eql([{
       path: 'val',
@@ -92,15 +97,19 @@ describe('strummer', function() {
   });
 
   it('can define custom leaf matchers', function() {
-    var greeting = s(function(val) {
-      if (/hello [a-z]+/.test(val) === false) {
-        return 'should be a greeting';
+    var greeting = s.createMatcher({
+      initialize: function() {},
+      match: function(path, val) {
+        if (/hello [a-z]+/.test(val) === false) {
+          return 'should be a greeting';
+        }
       }
     });
+
     var schema = s({
-      hello: greeting
+      hello: new greeting()
     });
-    schema({
+    schema.match({
       hello: 'bye'
     }).should.eql([
       {
@@ -109,67 +118,6 @@ describe('strummer', function() {
         message: 'should be a greeting'
       }
     ]);
-  });
-
-  it('matchers can return other matchers', function() {
-    var schema = s({
-      age: function(path, value) {
-        return s.number();
-      }
-    });
-    schema({
-      age: 'foo'
-    }).should.eql([
-      {
-        path: 'age',
-        value: 'foo',
-        message: 'should be a number'
-      }
-    ]);
-  });
-
-  it('matchers can return other matchers (nested)', function() {
-    var schema = s({
-      age: function(path, value) {
-        return function(path2, value2) {
-          return s.number();
-        };
-      }
-    });
-    schema({
-      age: 'foo'
-    }).should.eql([
-      {
-        path: 'age',
-        value: 'foo',
-        message: 'should be a number'
-      }
-    ]);
-  });
-
-
-  it('can return dynamic matchers', function() {
-
-    var schema = s({
-      thing: function (path, value) {
-        if (value.type === 'A') {
-          return s({a: 'number'});
-        } else {
-          return s({b: 'number'});
-        }
-      }
-    });
-
-    schema({
-      thing: {type: 'B', b: 'foo'}
-    }).should.eql([
-      {
-        path: 'thing.b',
-        value: 'foo',
-        message: 'should be a number'
-      }
-    ]);
-
   });
 
   it('can assert on a matcher being successful', function() {
@@ -196,5 +144,4 @@ describe('strummer', function() {
       });
     }).should.throw(/name should be a string \(was { text: 'bob' }\)/);
   });
-
 });

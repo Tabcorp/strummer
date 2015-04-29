@@ -11,7 +11,7 @@ if (process.env['BLANKET']) {
 should.Assertion.prototype.error = function(regex) {
   var found = this.obj.filter(function(err) {
     if (typeof regex === 'string') return err.message === regex;
-    if (regex.test) return regex.test(err.message);
+    if (regex && regex.test) return regex.test(err.message);
     else return true;
   });
   this.params = {

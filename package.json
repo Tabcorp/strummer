@@ -4,12 +4,17 @@
   "description": "Structural matching for JavaScript",
   "author": "Tabcorp Digital Technology Team",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "lib/strummer.js",
   "scripts": {},
   "config": {
     "blanket": {
-      "pattern": "lib",
-      "data-cover-never": "node_modules"
+      "pattern": [
+        ""
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ]
     },
     "travis-cov": {
       "threshold": 100
@@ -22,10 +27,11 @@
     "format-number": "~1.0.2",
     "blanket": "~1.1.6",
     "travis-cov": "~0.2.5",
-    "require-dir": "~0.1.0"
+    "require-dir": "~0.1.0",
+    "eslint": "~0.20.0"
   },
   "dependencies": {
-    "lodash": "~2.4.1",
+    "lodash": "~3.7.0",
     "require-all": "0.0.8",
     "ms": "~0.7.0"
   }

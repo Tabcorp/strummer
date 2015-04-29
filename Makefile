@@ -1,10 +1,13 @@
-test:
+lint:
+	@./node_modules/.bin/eslint lib
+
+test: lint
 	@./node_modules/.bin/mocha
 
-coverage:
+coverage: lint
 	@BLANKET=true ./node_modules/.bin/mocha --reporter html-cov > coverage.html
 
-travis:
+travis: lint
 	@BLANKET=true ./node_modules/.bin/mocha --reporter travis-cov
 
-.PHONY: test coverage travis
+.PHONY: lint test coverage travis
