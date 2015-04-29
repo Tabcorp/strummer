@@ -41,6 +41,7 @@ describe('Performance', function() {
   };
 
   it('generates stats for the README', function() {
+    verifyResults();
     var table = new Table({head: ['Number of validations', 'Total time (ms)']});
     run(table, 100);
     run(table, 1000);
@@ -52,10 +53,28 @@ describe('Performance', function() {
     var start = new Date();
     for (var i = 0; i < count; ++i) {
       var errors = schema(invalidObject);
-      errors.should.have.length(3);
     }
     var end = new Date();
     table.push([format()(count), end-start]);
+  }
+
+  function verifyResults() {
+    var errors = schema(invalidObject);
+    errors.should.eql(
+      [{
+        path: 'addresses[1].postcode',
+        value: undefined,
+        message: 'should be a number'
+      }, {
+        path: 'nicknames[2]',
+        value: false,
+        message: 'should be a string'
+      }, {
+        path: 'phones[2].type',
+        value: 'OTHER',
+        message: 'should be a valid enum value'
+      }]
+    );
   }
 
 });
