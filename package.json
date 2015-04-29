@@ -8,8 +8,13 @@
   "scripts": {},
   "config": {
     "blanket": {
-      "pattern": [""],
-      "data-cover-never": [ "node_modules", "test" ]
+      "pattern": [
+        ""
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ]
     },
     "travis-cov": {
       "threshold": 100
@@ -22,7 +27,8 @@
     "format-number": "~1.0.2",
     "blanket": "~1.1.6",
     "travis-cov": "~0.2.5",
-    "require-dir": "~0.1.0"
+    "require-dir": "~0.1.0",
+    "eslint": "~0.20.0"
   },
   "dependencies": {
     "lodash": "~3.7.0",
