@@ -5,9 +5,9 @@ test: lint
 	@./node_modules/.bin/mocha
 
 coverage: lint
-	@BLANKET=true ./node_modules/.bin/mocha --reporter html-cov > coverage.html
+	@./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha
+	@./node_modules/.bin/istanbul check-coverage --config=istambul.yml
 
-travis: lint
-	@BLANKET=true ./node_modules/.bin/mocha --reporter travis-cov
+travis: lint coverage
 
 .PHONY: lint test coverage travis
