@@ -6,29 +6,15 @@
   "license": "MIT",
   "main": "lib/strummer.js",
   "scripts": {},
-  "config": {
-    "blanket": {
-      "pattern": [
-        ""
-      ],
-      "data-cover-never": [
-        "node_modules",
-        "test"
-      ]
-    },
-    "travis-cov": {
-      "threshold": 100
-    }
-  },
   "devDependencies": {
     "mocha": "~1.21.3",
     "should": "~4.0.4",
     "cli-table": "~0.3.0",
     "format-number": "~1.0.2",
     "blanket": "~1.1.6",
-    "travis-cov": "~0.2.5",
     "require-dir": "~0.1.0",
-    "eslint": "~0.20.0"
+    "eslint": "~0.20.0",
+    "istanbul": "~0.3.13"
   },
   "dependencies": {
     "lodash": "~3.7.0",
