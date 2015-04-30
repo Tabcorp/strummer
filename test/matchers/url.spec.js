@@ -20,6 +20,13 @@ describe('url matcher', function() {
     new url().match('', 'almost/a/url').should.have.error(/should be a URL/);
     new url().match('', 'http://').should.have.error(/should be a URL/);
     new url().match('', 'redis://localhost').should.have.error(/should be a URL/);
-  })
+  });
+
+  it('generates a url format string json schema', function() {
+    new url().toJSONSchema().should.eql({
+      type: 'string',
+      format: 'url'
+    });
+  });
 
 });

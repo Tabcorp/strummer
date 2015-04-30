@@ -1,5 +1,5 @@
 lint:
-	@./node_modules/.bin/eslint lib
+	@./node_modules/.bin/eslint -c .eslintrc lib
 
 test: lint
 	@./node_modules/.bin/mocha

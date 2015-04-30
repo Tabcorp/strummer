@@ -47,4 +47,11 @@ describe('duration matcher', function() {
     }).should.throw('Invalid maximum duration: Bar');
   });
 
+  it('generates a string schema with ms pattern', function() {
+    var d = new duration().toJSONSchema();
+    var reg = new RegExp(d.pattern, 'i');
+    d.type.should.equal('string');
+    reg.test('2 days').should.be.true;
+    reg.test('1s').should.be.true;
+  });
 });

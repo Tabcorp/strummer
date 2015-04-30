@@ -111,4 +111,33 @@ describe('array matcher', function() {
     }).match('path', ['bob', 'the', 'builder']).should.eql([]);
   });
 
+  it('creates a simple array json schema', function() {
+    new array({ of: 'string' }).toJSONSchema().should.eql({
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    });
+  });
+
+  it('creates array json schema with minItems option', function() {
+    new array({ of: 'string', min: 1 }).toJSONSchema().should.eql({
+      type: 'array',
+      items: {
+        type: 'string'
+      },
+      minItems: 1
+    });
+  });
+
+  it('creates array json schema with maxItems option', function() {
+    new array({ of: 'string', min: 1, max: 999 }).toJSONSchema().should.eql({
+      type: 'array',
+      items: {
+        type: 'string'
+      },
+      minItems: 1,
+      maxItems: 999
+    });
+  });
 });

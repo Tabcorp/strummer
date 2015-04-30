@@ -17,8 +17,8 @@ describe('hashmap matcher', function() {
         keys: new s.string()
       }).match('x', OBJ).should.not.have.error();
       new hashmap({keys: new s.regex(/n/)}).match('x', OBJ).should.eql([
-        {path: 'x.keys[1]', value: 'two', message: 'should match the regex /n/'},
-      ])
+        {path: 'x.keys[1]', value: 'two', message: 'should match the regex /n/'}
+      ]);
     });
 
     it('matches values', function() {
@@ -78,8 +78,8 @@ describe('hashmap matcher', function() {
       new hashmap({
         values: valueMatcher
       }).match('x', {
-        foo: 'bar',
-      }).should.eql([])
+        foo: 'bar'
+      }).should.eql([]);
     });
 
   });

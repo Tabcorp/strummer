@@ -1,4 +1,5 @@
 require('../../lib/strummer');
+var object   = require('../../lib/matchers/object');
 var optional = require('../../lib/matchers/optional');
 var string   = require('../../lib/matchers/string');
 
@@ -22,6 +23,24 @@ describe('optional Matcher', function() {
   it('compiles the wrapped matcher', function() {
     var m = new optional('string');
     m.match(123).should.have.error('should be a string');
+  });
+
+  it('generates a optional json schema for property', function() {
+    new object({
+      foo: 'string',
+      bar: optional('string')
+    })._toJSONSchema().should.eql({
+      type: 'object',
+      required: ['foo'],
+      properties: {
+        foo: {
+          type: 'string'
+        },
+        bar: {
+          type: 'string'
+        }
+      }
+    });
   });
 
 });
