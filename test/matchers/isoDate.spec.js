@@ -40,4 +40,11 @@ describe('iso date matcher', function() {
   it('respects the time flag if explicitly used', function() {
     new date({time: true}).match('', '2999-12-31').should.have.error(/should be a date with time in ISO8601 format/);
   });
+
+  it('generates json schema with specific format', function() {
+    new date().toJSONSchema().should.eql({
+      type: 'string',
+      format: 'ISO8601'
+    });
+  });
 });

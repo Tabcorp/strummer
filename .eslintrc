@@ -26,4 +26,4 @@ rules:
   no-underscore-dangle: false
   no-new: false
   no-wrap-func: false
-
+  no-undefined: false

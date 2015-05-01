@@ -31,4 +31,10 @@ describe('boolean matcher', function() {
     new BoolMatcher({parse: true}).match('', undefined).should.have.error(/should be a boolean/);
   });
 
+  it('generates the boolean json schema', function() {
+    new BoolMatcher().toJSONSchema().should.eql({
+      type: 'boolean'
+    });
+  });
+
 });

@@ -24,4 +24,10 @@ describe('regex matcher', function() {
     new regex(/[a-z]+/).match('', true).should.have.error(/should be a string/);
   });
 
+  it('generates string json schema with regex pattern', function() {
+    new regex(/[a-z]+/)._toJSONSchema().should.eql({
+      type: 'string',
+      pattern: '[a-z]+'
+    });
+  });
 });

@@ -127,5 +127,20 @@ describe('objectWithOnly object matcher', function() {
       name: 'bob'
     }).should.eql([])
   });
+
+  it('generates the object json schema but with additionalProperties which sets false', function() {
+    new objectWithOnly({
+      foo: 'string'
+    }).toJSONSchema().should.eql({
+      type: 'object',
+      properties: {
+        foo: {
+          type: 'string'
+        }
+      },
+      required: ['foo'],
+      additionalProperties: false
+    });
+  });
   
 });

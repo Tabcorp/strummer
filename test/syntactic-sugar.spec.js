@@ -29,7 +29,7 @@ describe('syntactic sugar', function() {
   it('can use matcher names inside object litterals', function() {
     var schema = s({
       name: 'string',
-      age:  'number'
+      age: 'number'
     });
     schema.match({
       name: 'bob',
@@ -46,7 +46,7 @@ describe('syntactic sugar', function() {
       names: ['string']
     });
     schema.match({
-      names: ['hello', 123],
+      names: ['hello', 123]
     }).should.eql([{
       path: 'names[1]',
       value: 123,
@@ -59,7 +59,7 @@ describe('syntactic sugar', function() {
       name: /^[a-z]+$/
     });
     schema.match({
-      name: 'Bob123',
+      name: 'Bob123'
     }).should.eql([{
       path: 'name',
       value: 'Bob123',

@@ -45,4 +45,12 @@ describe('enum matcher', function() {
     m.match('', 'yellow').should.have.error(/should be a valid color \(blue,red,green\)/);
   });
 
+  it('generates enum json schema', function() {
+    new enumer({
+      values: ['foo', 'bar', 'brillian', 'kiddkai']
+    }).toJSONSchema().should.eql({
+      enum: ['foo', 'bar', 'brillian', 'kiddkai']
+    }); 
+  });
+
 });

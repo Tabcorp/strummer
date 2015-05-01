@@ -24,17 +24,17 @@ describe('number matcher', function() {
 
   it('fails when max less than min', function() {
     (function() {
-      new number({min: 5, max: 3})
+      new number({min: 5, max: 3});
     }).should.throw(/Invalid option/);
   });
 
-  it('fails for invalid min or max values', function(){
-    var shouldFail = function(val) {
-      (function(){
+  it('fails for invalid min or max values', function () {
+    function shouldFail(val) {
+      (function () {
         new number({min: val});
       }).should.throw('Invalid minimum option: ' + val);
 
-      (function(){
+      (function () {
         new number({max: val});
       }).should.throw('Invalid maximum option: ' + val);
     }
@@ -63,4 +63,31 @@ describe('number matcher', function() {
     new number({parse: true}).match('', true).should.have.error(/should be a number/);
   });
 
+  it('can converts to json-shema', function() {
+    number({ min: 1, max: 100 }).toJSONSchema().should.eql({
+      type: 'number',
+      maximum: 100,
+      minium: 1
+    });
+  });
+
+  it('can have optional maximum in json-schema', function() {
+    number({ min: 1 }).toJSONSchema().should.eql({
+      type: 'number',
+      minium: 1
+    });
+  });
+
+  it('can have optional minium in json-schema', function() {
+    number({ max: 100 }).toJSONSchema().should.eql({
+      type: 'number',
+      maximum: 100
+    });
+  });
+
+  it('can have no limit number json-schema', function() {
+    number().toJSONSchema().should.eql({
+      type: 'number'
+    });
+  });
 });

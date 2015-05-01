@@ -1,5 +1,4 @@
 var should     = require('should');
-var blanket    = require('blanket');
 var requireDir = require('require-dir');
 
 // require all <lib> code to get full code coverage

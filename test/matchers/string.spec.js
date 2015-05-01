@@ -22,4 +22,24 @@ describe('string matcher', function() {
     new string({min: 3, max: 5}).match('', "hell").should.not.have.an.error();
   });
 
+  it('generate basic string json schema', function() {
+    new string().toJSONSchema().should.eql({
+      type: 'string'
+    });
+  });
+
+  it('generates a json schema with minLength option', function() {
+    new string({ min: 3 }).toJSONSchema().should.eql({
+      type: 'string',
+      minLength: 3
+    });
+  });
+
+  it('generates a json shcme with maxLength option', function() {
+    new string({ max: 3 }).toJSONSchema().should.eql({
+      type: 'string',
+      maxLength: 3
+    });
+  });
+
 });

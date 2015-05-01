@@ -2,6 +2,7 @@ require('../../lib/strummer');
 var object = require('../../lib/matchers/object');
 var string = require('../../lib/matchers/string');
 var number = require('../../lib/matchers/number');
+var factory = require('../../lib/factory');
 var Matcher = require('../../lib/matcher');
 
 describe('object matcher', function() {
@@ -9,7 +10,7 @@ describe('object matcher', function() {
     it('rejects null values', function() {
       var schema = new object({
         name: new string(),
-        age:  new number()
+        age: new number()
       });
 
       schema.match('path.to.something', null).should.eql([{
@@ -24,7 +25,6 @@ describe('object matcher', function() {
         name: new string(),
         age: new number()
       });
-
       schema.match('', 'bob').should.eql([{
         path: '',
         value: 'bob',
@@ -125,14 +125,75 @@ describe('object matcher', function() {
     it('handles falsy return values from value matchers', function() {
       var valueMatcher = {
         __proto__: new Matcher({}),
-        match: function(path, sth) {}
+        match: function() {}
       };
 
       new object({
         name: valueMatcher
       }).match('', {
         name: 'bob'
-      }).should.eql([])
+      }).should.eql([]);
     });
 
+    it('creates json schema with all required fields', function() {
+      var matcher = new object({
+        foo: 'string',
+        bar: 'number'
+      });
+
+      matcher.toJSONSchema().required.should.containEql('foo');
+      matcher.toJSONSchema().required.should.containEql('bar');
+    });
+
+    it('creates json schema without optional fields', function() {
+      var matcher = new object({
+        foo: string({ optional: true }),
+        bar: 'number'
+      });
+
+      matcher.toJSONSchema().required.should.not.containEql('foo');
+      matcher.toJSONSchema().required.should.containEql('bar');
+    });
+
+    it('generate json schema properties', function() {
+      var matcher = new object({
+        foo: number({ max: 100, min: 1 })
+      });
+
+      matcher.toJSONSchema().should.eql({
+        type: 'object',
+        required: ['foo'],
+        properties: {
+          foo: {
+            type: 'number',
+            maximum: 100,
+            minium: 1
+          }
+        }
+      });
+    });
+
+    it('will not generate json schema for the property which generate nothing', function() {
+      var custom = factory({
+        initialize: function() {},
+        match: function() {}
+      });
+
+      var matcher = new object({
+        foo: number({ max: 100, min: 1 }),
+        bar: custom()
+      });
+
+      matcher.toJSONSchema().should.eql({
+        type: 'object',
+        required: ['foo'],
+        properties: {
+          foo: {
+            type: 'number',
+            maximum: 100,
+            minium: 1
+          }
+        }
+      });
+    });
 });

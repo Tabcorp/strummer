@@ -144,4 +144,22 @@ describe('strummer', function() {
       });
     }).should.throw(/name should be a string \(was { text: 'bob' }\)/);
   });
+
+  it('throws error when match is not implemented', function() {
+    (function() {
+      s.createMatcher({});
+    }).should.throw(/match is not implemented/);
+  });
+
+  it('supports optional initialize method', function() {
+    (function() {
+      var m = s.createMatcher({
+        match: function() {
+          return;
+       }
+      });
+      var schema = m();
+      schema.match();
+    }).should.not.throw();
+  });
 });
