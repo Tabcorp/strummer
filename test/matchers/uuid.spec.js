@@ -35,4 +35,11 @@ describe('uuid matcher', function() {
     new uuid({version: 3}).match('', '00000000-0000-3000-8000-000000000000').should.not.have.error();
   });
 
+  it('generate specific version format of uuid json schema', function() {
+    new uuid({version: 1}).toJSONSchema().should.eql({ type: 'string', format: 'uuid-v1' });
+    new uuid({version: 2}).toJSONSchema().should.eql({ type: 'string', format: 'uuid-v2' });
+    new uuid({version: 3}).toJSONSchema().should.eql({ type: 'string', format: 'uuid-v3' });
+    new uuid({version: 4}).toJSONSchema().should.eql({ type: 'string', format: 'uuid-v4' });
+  });
+
 });

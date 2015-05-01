@@ -228,6 +228,47 @@ s.assert(person, {
 // person.age should be a number <= 200 (but was 250)
 ```
 
+## JSON Schema Supports
+
+Strummer can generate some simple JSON Schema from strummer definition.
+
+```js
+var schema = s({
+  foo: 'string',
+  bar: s.string({ optional: true }),
+  num: s.number({ max: 100, min: 0 })
+});
+
+console.log(schema.toJSONSchema());
+```
+
+which will shows log like this:
+
+```js
+{
+  type: 'object',
+  required: ['foo', 'num'],
+  properties: {
+    foo: {
+      type: 'string'
+    },
+    bar: {
+      type: 'string'
+    },
+    num: {
+      type: 'number',
+      maximum: 100,
+      minimum: 0
+    }
+  }
+}
+```
+
+When you trying to create your own matcher which supports jsonSchema, then you needs to impement
+the `toJSONSchema` option in the `createMatcher`, if `toJSONSchema` is not defined, when you call
+`matcher.toJSONSchema()` it will return nothing.
+
+
 ## A note on performance
 
 The 2 main rules for performance are:
