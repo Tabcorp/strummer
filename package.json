@@ -1,6 +1,6 @@
 {
   "name": "strummer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Structural matching for JavaScript",
   "author": "Tabcorp Digital Technology Team",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "istanbul": "~0.3.13"
   },
   "dependencies": {
-    "lodash": "~3.7.0",
+    "lodash": "~3.8.0",
     "require-all": "0.0.8",
     "ms": "~0.7.0"
   }
