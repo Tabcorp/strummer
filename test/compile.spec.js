@@ -1,4 +1,5 @@
 var compile       = require('../lib/compile');
+var factory       = require('../lib/factory');
 var objectMatcher = require('../lib/matchers/object');
 
 describe("Compile",function(){
@@ -15,19 +16,20 @@ describe("Compile",function(){
       }).should.throw('Invalid matcher: false');
     });
 
-    it("should use the object being passed as a matcher if it has a match method",function(){
-      var objectWithAMatchMethod = {
-        match:function(){
-          return "some value"
+    it("should use the object being passed as matcher if it is a strummer matcher",function(){
+      var DummyMatcher = factory({
+        match: function(){
+          return false;
         }
-      };
+      });
+      var expectedMatcher = new DummyMatcher();
 
-      var actualMatcher = compile.spec(objectWithAMatchMethod);
+      var actualMatcher = compile.spec(expectedMatcher);
 
-      actualMatcher.should.equal(objectWithAMatchMethod);
+      actualMatcher.should.equal(expectedMatcher);
     });
 
-    it("should create an object matcher if the object being passed does not have a match method",function(){
+    it("should create an object matcher if the object being passed matches the object matcher",function(){
       var objectWithoutAMatchMethod = {};
 
       var actualMatcher = compile.spec(objectWithoutAMatchMethod);
