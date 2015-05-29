@@ -7,17 +7,17 @@
   "main": "lib/strummer.js",
   "scripts": {},
   "devDependencies": {
-    "mocha": "~1.21.3",
-    "should": "~4.0.4",
+    "mocha": "~2.2.5",
+    "should": "~6.0.3",
     "cli-table": "~0.3.0",
     "format-number": "~1.0.2",
-    "require-dir": "~0.1.0",
-    "eslint": "es6jsx",
+    "require-dir": "~0.3.0",
+    "eslint": "0.21.2",
     "istanbul": "~0.3.13"
   },
   "dependencies": {
-    "lodash": "~3.8.0",
-    "require-all": "0.0.8",
-    "ms": "~0.7.0"
+    "lodash": "~3.9.3",
+    "require-all": "1.1.0",
+    "ms": "~0.7.1"
   }
 }
