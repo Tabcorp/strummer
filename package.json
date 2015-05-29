@@ -6,6 +6,7 @@
   "license": "MIT",
   "main": "lib/strummer.js",
   "scripts": {},
+  "repository": "TabDigital/strummer",
   "devDependencies": {
     "mocha": "~1.21.3",
     "should": "~4.0.4",
