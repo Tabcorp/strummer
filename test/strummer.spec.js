@@ -162,4 +162,19 @@ describe('strummer', function() {
       schema.match();
     }).should.not.throw();
   });
+
+  it('supports initialize with name', function() {
+    var m = s('User', {
+      foo: 'string',
+      bar: 'number'
+    });
+
+    var data = {
+      foo: 123,
+      bar: 'str'
+    };
+
+    m.name.should.equal('User');
+    m.match(data).should.have.lengthOf(2);
+  });
 });
