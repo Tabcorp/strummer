@@ -17,6 +17,7 @@
     "istanbul": "~0.3.13"
   },
   "dependencies": {
+    "escape-string-regexp": "^1.0.3",
     "lodash": "~3.9.3",
     "require-all": "1.1.0",
     "ms": "~0.7.1"

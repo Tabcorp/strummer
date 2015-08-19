@@ -16,6 +16,7 @@
 - [string](#string)
 - [url](#url)
 - [uuid](#uuid)
+- [email](#email)
 
 ## array
 
@@ -246,4 +247,17 @@ id: s.uuid()
 
 // only match a specific version
 id: s.uuid({version: 4})
+```
+
+## email
+
+Match a valid email address.
+
+```js
+// match any valid email
+id: 'email'
+id: s.email()
+
+// only match a specific domain
+id: s.email({domain: 'example.org'})
 ```
