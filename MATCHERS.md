@@ -7,6 +7,7 @@
 - [func](#func)
 - [hashmap](#hashmap)
 - [integer](#integer)
+- [ip](#ip)
 - [isoDate](#isoDate)
 - [number](#number)
 - [object](#object)
@@ -114,6 +115,13 @@ numberOfKids: s.integer({min: 0, max: 100})
 
 // optionally parse a string into an integer e.g. "120"
 numberOfKids: s.integer({parse: true, min: 0, max: 100})
+```
+
+## ip (does not yet support IPv6)
+
+```js
+// match any IPv4 address in dot-decimal notation, eg. 192.168.0.1
+ip: s.ip({version: 4})
 ```
 
 ## isoDate
