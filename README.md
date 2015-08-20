@@ -86,6 +86,7 @@ Built-in matchers include(all classes)
 - `s.func({arity})`
 - `s.hashmap({keys, values})`
 - `s.integer({min, max})`
+- `s.ip({version: 4})`
 - `s.isoDate()`
 - `s.number({min, max})`
 - `s.object(fields)`
