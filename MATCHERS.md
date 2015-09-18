@@ -16,6 +16,7 @@
 - [string](#string)
 - [url](#url)
 - [uuid](#uuid)
+- [value](#value)
 - [email](#email)
 
 ## array
@@ -247,6 +248,13 @@ id: s.uuid()
 
 // only match a specific version
 id: s.uuid({version: 4})
+```
+
+## value
+
+```js
+// test for strict equality on primitives
+promotionSelected: s.value(false)
 ```
 
 ## email

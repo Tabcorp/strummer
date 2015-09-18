@@ -95,6 +95,7 @@ Built-in matchers include(all classes)
 - `s.string({min, max})`
 - `s.url()`
 - `s.uuid({version})`
+- `s.value(primitive)`
 - `s.email({domain})`
 
 They all come with [several usage examples](https://github.com/TabDigital/strummer/blob/master/MATCHERS.md).
