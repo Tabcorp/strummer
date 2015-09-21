@@ -1,6 +1,8 @@
 .gitignore
 .npmignore
 .travis.yml
-coverage.html
+.eslintrc
+istambul.yml
+coverage
 test
 Makefile
