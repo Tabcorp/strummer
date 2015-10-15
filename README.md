@@ -97,6 +97,7 @@ Built-in matchers include(all classes)
 - `s.uuid({version})`
 - `s.value(primitive)`
 - `s.email({domain})`
+- `s.oneOf([matcher])`
 
 They all come with [several usage examples](https://github.com/TabDigital/strummer/blob/master/MATCHERS.md).
 Matchers usually support both simple / complex usages, with nice syntactic sugar.
