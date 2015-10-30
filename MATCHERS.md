@@ -18,6 +18,7 @@
 - [uuid](#uuid)
 - [value](#value)
 - [email](#email)
+- [oneOf](#oneOf)
 
 ## array
 
@@ -268,4 +269,19 @@ id: s.email()
 
 // only match a specific domain
 id: s.email({domain: 'example.org'})
+```
+
+## oneOf
+
+Match one of the matchers
+
+```js
+param: s.oneOf([
+  'string',
+  s.enum({ values: [1, 2, 3] }),
+  'boolean',
+  s.object({
+    name: 'string'
+  })
+]);
 ```
