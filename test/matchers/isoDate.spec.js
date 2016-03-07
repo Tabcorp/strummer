@@ -9,6 +9,7 @@ describe('iso date matcher', function() {
     new date().match('', '2999-12-31T23:59:59.999-00:00').should.not.have.error();
     new date().match('', '1000-00-00T00:00:00.000+10:24').should.not.have.error();
     new date().match('', '2999-12-31T23:59:59.999-01:28').should.not.have.error();
+    new date().match('', '2999-12-31T23:59:59.9999-01:28').should.not.have.error();
   });
 
   it('supports optional GMT sign', function() {
