@@ -20,7 +20,20 @@ describe('object matcher', function() {
       }]);
     });
 
-    it('rejects anything that isnt an object', function() {
+    it('rejects array values', function() {
+      var schema = new object({
+        name: new string(),
+        age: new number()
+      });
+
+      schema.match('path.to.something', [1,2,3]).should.eql([{
+        path: 'path.to.something',
+        value: [1,2,3],
+        message: 'should be an object'
+      }]);
+    });
+
+   it('rejects anything that isnt an object', function() {
       var schema = new object({
         name: new string(),
         age: new number()
