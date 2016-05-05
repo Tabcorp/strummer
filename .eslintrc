@@ -6,7 +6,6 @@ rules:
   comma-style: [2, "last"]
   default-case: 2
   func-style: [2, "declaration"]
-  guard-for-in: 2
   no-floating-decimal: 2
   no-nested-ternary: 2
   no-undefined: 2
@@ -14,7 +13,6 @@ rules:
   space-after-keywords: [2, "always"]
   space-before-blocks: 2
   spaced-line-comment: [2, "always", { exceptions: ["-"]}]
-  strict: [2, "global"]
   valid-jsdoc: [2, { prefer: { "return": "returns"}}]
   wrap-iife: 2
   quotes: "single"
@@ -26,4 +24,3 @@ rules:
   no-underscore-dangle: false
   no-new: false
   no-wrap-func: false
-  no-undefined: false
