@@ -8,7 +8,6 @@ rules:
   func-style: [2, "declaration"]
   no-floating-decimal: 2
   no-nested-ternary: 2
-  no-undefined: 2
   radix: 2
   space-after-keywords: [2, "always"]
   space-before-blocks: 2
