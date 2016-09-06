@@ -12,18 +12,18 @@
   },
   "repository": "TabDigital/strummer",
   "devDependencies": {
-    "mocha": "~2.2.5",
-    "should": "~6.0.3",
+    "mocha": "~3.0.2",
+    "should": "~11.1.0",
     "cli-table": "~0.3.0",
-    "format-number": "~1.0.2",
+    "format-number": "~2.0.1",
     "require-dir": "~0.3.0",
-    "eslint": "0.21.2",
-    "istanbul": "~0.3.13"
+    "eslint": "3.4.0",
+    "istanbul": "~0.4.5"
   },
   "dependencies": {
     "escape-string-regexp": "^1.0.3",
-    "lodash": "~3.9.3",
-    "require-all": "1.1.0",
+    "lodash": "~4.15.0",
+    "require-all": "2.0.0",
     "ms": "~0.7.1"
   }
 }
