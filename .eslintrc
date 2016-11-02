@@ -10,17 +10,10 @@ rules:
   no-nested-ternary: 2
   no-undefined: 2
   radix: 2
-  space-after-keywords: [2, "always"]
+  keyword-spacing: [2, { "before": true, "after": true}]
   space-before-blocks: 2
-  spaced-line-comment: [2, "always", { exceptions: ["-"]}]
+  spaced-comment: [2, "always", { "exceptions": ["-"]}]
   valid-jsdoc: [2, { prefer: { "return": "returns"}}]
   wrap-iife: 2
-  quotes: "single"
-  strict: false
-  new-cap: false
-  no-multi-spaces: false
-  curly: true
-  guard-for-in: false
-  no-underscore-dangle: false
-  no-new: false
-  no-wrap-func: false
+  quotes: [2, "single"]
+  curly: [2, "all"]
