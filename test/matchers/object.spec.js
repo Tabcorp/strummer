@@ -155,6 +155,14 @@ describe('object matcher', function() {
       matcher.toJSONSchema().required.should.containEql('bar');
     });
 
+    it('creates json schema with all optional fields', function() {
+      var matcher = new object({
+        foo: string({ optional: true })
+      });
+
+      matcher.toJSONSchema().should.not.have.property('required');
+    });
+
     it('generate json schema properties', function() {
       var matcher = new object({
         foo: number({ max: 100, min: 1 })
