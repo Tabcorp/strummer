@@ -67,18 +67,18 @@ describe('number matcher', function() {
     number({ min: 1, max: 100 }).toJSONSchema().should.eql({
       type: 'number',
       maximum: 100,
-      minium: 1
+      minimum: 1
     });
   });
 
   it('can have optional maximum in json-schema', function() {
     number({ min: 1 }).toJSONSchema().should.eql({
       type: 'number',
-      minium: 1
+      minimum: 1
     });
   });
 
-  it('can have optional minium in json-schema', function() {
+  it('can have optional minimum in json-schema', function() {
     number({ max: 100 }).toJSONSchema().should.eql({
       type: 'number',
       maximum: 100

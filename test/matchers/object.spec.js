@@ -175,7 +175,7 @@ describe('object matcher', function() {
           foo: {
             type: 'number',
             maximum: 100,
-            minium: 1
+            minimum: 1
           }
         }
       });
@@ -199,7 +199,7 @@ describe('object matcher', function() {
           foo: {
             type: 'number',
             maximum: 100,
-            minium: 1
+            minimum: 1
           }
         }
       });
