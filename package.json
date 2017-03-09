@@ -23,7 +23,7 @@
   "dependencies": {
     "escape-string-regexp": "^1.0.3",
     "lodash": "~4.17.2",
-    "require-all": "2.0.0",
+    "require-all": "2.2.0",
     "ms": "~0.7.1"
   }
 }
