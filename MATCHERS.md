@@ -2,6 +2,7 @@
 
 - [array](#array)
 - [boolean](#boolean)
+- [cidr](#cidr)
 - [duration](#duration)
 - [enum](#enum)
 - [func](#func)
@@ -50,6 +51,13 @@ enabled: s.boolean()
 
 // optionally parse a string into a boolean e.g. "true"/"false"
 enabled: s.boolean({parse: true})
+```
+
+## cidr (does not yet support IPv6)
+
+```js
+// match any IPv4 address cidr block eg. 192.168.0.1/32
+ip: s.cidr({version: 4})
 ```
 
 ## duration
