@@ -22,8 +22,10 @@
   },
   "dependencies": {
     "escape-string-regexp": "^1.0.3",
+    "isarray": "^2.0.2",
     "lodash": "~4.17.2",
-    "require-all": "2.2.0",
-    "ms": "~2.0.0"
+    "ms": "~2.0.0",
+    "url": "^0.11.0",
+    "util-inspect": "^0.1.8"
   }
 }
