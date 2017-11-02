@@ -122,6 +122,18 @@ describe('strummer', function() {
 
   it('can assert on a matcher being successful', function() {
     var person = {
+      name: 'bob',
+      age: 3
+    };
+
+    s.assert(person, {
+      name: 'string',
+      age: 'number'
+    });
+  });
+
+  it('can assert on a matcher being unsuccessful', function() {
+    var person = {
       name: 3,
       age: 'bob'
     };
