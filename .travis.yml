@@ -13,3 +13,14 @@ addons:
     packages:
       - g++-4.8
 script: "make travis"
+jobs:
+  include:
+    - stage: npm release
+      script: echo "Deploying to npm ..."
+      deploy:
+        provider: npm
+        email: npm@tabdigital.com.au
+        api_key: $NPM_TOKEN
+        on:
+          tags: true
+          branch: master
