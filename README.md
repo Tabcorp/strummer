@@ -81,6 +81,7 @@ Built-in matchers include(all classes)
 
 - `s.array({min, max, of})`
 - `s.boolean()`
+- `s.cidr({version: 4})`
 - `s.duration({min, max})`
 - `s.enum({name, values, verbose})`
 - `s.func({arity})`
