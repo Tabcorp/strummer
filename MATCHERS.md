@@ -18,7 +18,7 @@
 - [uuid](#uuid)
 - [value](#value)
 - [email](#email)
-- [oneOf](#oneOf)
+- [oneOf](#oneof)
 
 ## array
 
@@ -134,7 +134,7 @@ For example: `2014-12-31T23:59:59.999Z`
 
 ```js
 updated: 'isoDate'
-updated: s.isoDate()
+updated: s.isoDate({time: true})
 ```
 
 ## number
