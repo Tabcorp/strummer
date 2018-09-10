@@ -12,19 +12,19 @@
   },
   "repository": "TabDigital/strummer",
   "devDependencies": {
-    "mocha": "~3.4.2",
-    "should": "~11.2.1",
+    "mocha": "~5.2.0",
+    "should": "~13.2.3",
     "cli-table": "~0.3.0",
-    "format-number": "~2.0.1",
-    "require-dir": "~0.3.0",
-    "eslint": "3.19.0",
+    "format-number": "~3.0.0",
+    "require-dir": "~1.0.0",
+    "eslint": "5.5.0",
     "istanbul": "~0.4.5"
   },
   "dependencies": {
     "escape-string-regexp": "^1.0.3",
     "isarray": "^2.0.2",
     "lodash": "~4.17.2",
-    "ms": "~2.0.0",
+    "ms": "~2.1.1",
     "url": "^0.11.0",
     "util-inspect": "^0.1.8"
   }
