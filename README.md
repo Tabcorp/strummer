@@ -9,7 +9,7 @@
 [![Test coverage](https://img.shields.io/badge/coverage-100%-brightgreen.svg?style=flat-square)](http://travis-ci.org/Tabcorp/strummer)
 
 [![Dependencies](http://img.shields.io/david/Tabcorp/strummer.svg?style=flat-square)](https://david-dm.org/Tabcorp/strummer)
-[![Dev dependencies](http://img.shields.io/david/dev/Tabcorp/strummer.svg?style=flat-square)](https://david-dm.org/Tabcorp/strummer)
+[![Dev dependencies](http://img.shields.io/david/dev/Tabcorp/strummer.svg?style=flat-square)](https://david-dm.org/Tabcorp/strummer) [![Greenkeeper badge](https://badges.greenkeeper.io/Tabcorp/strummer.svg)](https://greenkeeper.io/)
 
 ## Main uses cases
 
