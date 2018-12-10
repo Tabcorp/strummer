@@ -22,7 +22,7 @@ describe('relate', function () {
     ])
   })
 
-  it('should return no errors on valid relationship', function () {
+  it('should return no errors on valid AND relationship', function () {
     var spec = {
       param: 'should exist',
       param2: 'will exist'
@@ -36,6 +36,24 @@ describe('relate', function () {
     ]
 
     var errors = relate.validate(spec, '', { param: 'value', param2: 'value2' }, relationships)
+
+    errors.should.deepEqual([])
+  })
+
+  it('should return no errors on valid OR relationship', function () {
+    var spec = {
+      param: 'could exist',
+      param2: 'could exist'
+    }
+
+    var relationships = [
+      {
+        type: 'or',
+        values: ['param', 'param2']
+      }
+    ]
+
+    var errors = relate.validate(spec, '', { param2: 'value2' }, relationships)
 
     errors.should.deepEqual([])
   })
@@ -66,8 +84,8 @@ describe('relate', function () {
 
   it('should throw errors on missing or relation', function () {
     var spec = {
-      param: 'should exist',
-      param2: 'will exist',
+      param: 'could exist',
+      param2: 'could exist',
       param3: 'wont exist'
     }
 
