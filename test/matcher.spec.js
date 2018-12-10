@@ -77,6 +77,22 @@ describe('Matcher', function() {
         error: true
       }]);
     });
+
+    it('returns empty array if no constraint errors', function() {
+      var DummyMatcher = factory({
+        match: function() {
+          return false;
+        }
+      });
+
+      var constraintFunc = function (path, val) {
+        return []
+      }
+
+      var m = new DummyMatcher
+
+      m.match('/', {}, constraintFunc).should.eql([]);
+    });
   });
 
 });
