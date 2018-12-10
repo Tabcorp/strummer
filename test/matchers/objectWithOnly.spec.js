@@ -50,9 +50,9 @@ describe('objectWithOnly object matcher', function() {
       age:  new number()
     });
 
-    schema.match('', {name: 'bob', age: 21, email: "bob@email.com"}).should.eql([{
+    schema.match('', {name: 'bob', age: 21, email: 'bob@email.com'}).should.eql([{
       path: 'email',
-      value: "bob@email.com",
+      value: 'bob@email.com',
       message: 'should not exist'
     }])
   });
@@ -70,8 +70,8 @@ describe('objectWithOnly object matcher', function() {
       name: 'bob',
       age: 21,
       address: {
-        email: "bob@email.com",
-        home: "21 bob street"
+        email: 'bob@email.com',
+        home: '21 bob street'
       }
     }
 
@@ -142,5 +142,58 @@ describe('objectWithOnly object matcher', function() {
       additionalProperties: false
     });
   });
-  
+
+  it('handles valid relationships', function() {
+    var schema = new objectWithOnly({
+      name: new string(),
+      street_number: new number({ optional: true }),
+      street_post_code: new number({ optional: true })
+    })
+
+    var bob = {
+      name: 'bob',
+      street_number: 12,
+      street_post_code: 2001
+    }
+
+    var relationships = [
+      {
+        type: 'and',
+        values: ['street_number', 'street_post_code']
+      }
+    ]
+
+    schema.match('', bob, relationships).should.eql([])
+  });
+
+  it('gets errors on invalid relationships', function() {
+    var schema = new objectWithOnly({
+      name: new string(),
+      street_number: new number({ optional: true }),
+      street_post_code: new number({ optional: true })
+    })
+
+    var bob = {
+      name: 'bob',
+      street_number: 12
+    }
+
+    var relationships = [
+      {
+        type: 'and',
+        values: ['street_number', 'street_post_code']
+      }
+    ]
+
+    schema.match('', bob, relationships).should.eql([
+      {
+        message: '["street_number","street_post_code"] are related and therefore required',
+        path: '',
+        value: [
+          'street_number',
+          'street_post_code'
+        ]
+      }
+    ])
+  });
 });
