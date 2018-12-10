@@ -45,4 +45,38 @@ describe('Matcher', function() {
 
   });
 
+  describe('matcher', function() {
+
+    it('calls constraint function and returns errors', function() {
+      var DummyMatcher = factory({
+        match: function() {
+          return false;
+        }
+      });
+
+      var constraintFunc = function (path, val) {
+        if (val.shouldError) {
+          return {
+            path: path,
+            value: val,
+            error: true
+          }
+        }
+      }
+
+      var m = new DummyMatcher
+
+      var path = '/'
+      var value = {
+        shouldError: true
+      }
+
+      m.match(path, value, constraintFunc).should.eql([{
+        path: path,
+        value: value,
+        error: true
+      }]);
+    });
+  });
+
 });
