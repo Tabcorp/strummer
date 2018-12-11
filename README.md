@@ -25,6 +25,7 @@
 - [Optional values](#optional-values)
 - [Defining custom matchers](#defining-custom-matchers)
 - [Asserting on matchers](#asserting-on-matchers)
+- [Custom constraints](#custom-constraints)
 - [A note on performance](#a-note-on-performance)
 
 ## Getting started
@@ -231,6 +232,43 @@ s.assert(person, {
 });
 // person.age should be a number <= 200 (but was 250)
 ```
+
+## Custom constraints
+
+Custom constraints can be applied by passing a function as the second argument when creating the schema. This function will be run on match and you are able to return an array of errors.
+
+Currently only objectWithOnly is supported.
+
+An example use case is related optional fields
+
+```js
+// AND relationship between two optional fields
+
+var constraintFunc = function (path, value) {
+  if (value.street_number && !value.post_code) {
+    return [{
+      path: path,
+      value: value,
+      error: 'post_code is requried with a street_number'
+    }]
+  }
+
+  return []
+}
+
+var schema = new objectWithOnly({
+  email_address: new string(),
+  street_number: new number({optional: true}),
+  post_code: new number({optional: true}),
+}, constraintFunc);
+
+var value = {
+  email_address: 'test@strummer.com',
+  street_number: 12,
+}
+
+const errors = schema.match(value)
+// will error with post_code is requried with a street_number
 
 ## JSON Schema Supports
 
