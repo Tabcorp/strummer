@@ -267,7 +267,7 @@ var value = {
   street_number: 12,
 }
 
-const errors = schema.match(vals)
+const errors = schema.match(value)
 // will error with post_code is requried with a street_number
 
 ## JSON Schema Supports
