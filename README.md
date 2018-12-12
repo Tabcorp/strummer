@@ -260,7 +260,9 @@ var schema = new objectWithOnly({
   email_address: new string(),
   street_number: new number({optional: true}),
   post_code: new number({optional: true}),
-}, constraintFunc);
+}, {
+  constraints: constraintFunc
+});
 
 var value = {
   email_address: 'test@strummer.com',
