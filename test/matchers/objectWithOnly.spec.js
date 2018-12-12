@@ -15,7 +15,7 @@ describe('objectWithOnly object matcher', function() {
 
   it('constraints must be a function', function() {
     (function() {
-      new objectWithOnly({}, 'asdf');
+      new objectWithOnly({}, { constraints: 'asdf' });
     }).should.throw(/Invalid constraints/);
   });
 
@@ -166,7 +166,9 @@ describe('objectWithOnly object matcher', function() {
       email_address: new string(),
       street_number: new number({optional: true}),
       post_code: new number({optional: true}),
-    }, constraintFunc);
+    }, {
+      constraints: constraintFunc
+    });
 
     var value = {
       email_address: 'test@strummer.com',
@@ -187,7 +189,9 @@ describe('objectWithOnly object matcher', function() {
 
     var schema = new objectWithOnly({
       name: new string(),
-    }, constraintFunc);
+    }, {
+      constraints: constraintFunc
+    });
 
     schema.match('/', {name: 'works'}, constraintFunc).should.eql([]);
   });
