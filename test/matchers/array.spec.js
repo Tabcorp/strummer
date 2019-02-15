@@ -140,4 +140,21 @@ describe('array matcher', function() {
       maxItems: 999
     });
   });
+
+  it('passes index of item to the matcher', function() {
+    var valueMatcher = {
+      __proto__: new Matcher({}),
+      match: function(path, value, index) {
+        return [{ path: path, value: value, message: value + " is number " + (index + 1)}]
+      }
+    };
+
+    new array({
+      of: valueMatcher
+    }).match('path', ['bob']).should.eql([{
+      path: 'path[0]',
+      value: 'bob',
+      message: 'bob is number 1'
+    }]);
+  });
 });
