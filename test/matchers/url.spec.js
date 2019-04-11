@@ -29,4 +29,11 @@ describe('url matcher', function() {
     });
   });
 
+  it('generates a json schema with description option', function() {
+    new url({ description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'string',
+      format: 'url',
+      description: 'Lorem ipsum'
+    });
+  });
 });

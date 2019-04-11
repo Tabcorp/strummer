@@ -49,6 +49,12 @@ describe('email matcher', function() {
     reg.test('foo@bar.com').should.eql(true);
     reg.test('FoO.bAr1@baz.com').should.eql(true);
   });
+
+  it('generates a string schema optional description', function() {
+    var d = new email({ description: 'Lorem ipsum' }).toJSONSchema();
+    d.type.should.equal('string');
+    d.description.should.equal('Lorem ipsum');
+  });
 });
 
 var randomString = function(length) {

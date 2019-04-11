@@ -49,4 +49,11 @@ describe('equals matcher', function() {
       enum: [1]
     });
   });
+
+  it('generates enum json schema with description', function() {
+    new ValueMatcher(1, {description: 'Lorem ipsum'}).toJSONSchema().should.eql({
+      enum: [1],
+      description: 'Lorem ipsum'
+    });
+  });
 });

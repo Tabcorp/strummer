@@ -37,4 +37,11 @@ describe('boolean matcher', function() {
     });
   });
 
+  it('generates the boolean json schema', function() {
+    new BoolMatcher({ description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'boolean',
+      description: 'Lorem ipsum'
+    });
+  });
+
 });

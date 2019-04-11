@@ -120,6 +120,16 @@ describe('array matcher', function() {
     });
   });
 
+  it('creates a simple array json schema with optional description', function() {
+    new array({ of: 'string', description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'array',
+      description: 'Lorem ipsum',
+      items: {
+        type: 'string'
+      }
+    });
+  });
+
   it('creates array json schema with minItems option', function() {
     new array({ of: 'string', min: 1 }).toJSONSchema().should.eql({
       type: 'array',

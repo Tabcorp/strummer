@@ -42,4 +42,7 @@ describe('uuid matcher', function() {
     new uuid({version: 4}).toJSONSchema().should.eql({ type: 'string', format: 'uuid-v4' });
   });
 
+  it('generates a json schema with description option', function() {
+    new uuid({version: 4, description: 'Lorem ipsum'}).toJSONSchema().should.eql({ type: 'string', format: 'uuid-v4', description: 'Lorem ipsum' });
+  });
 });

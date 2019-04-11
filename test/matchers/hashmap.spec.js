@@ -49,7 +49,7 @@ describe('hashmap matcher', function() {
         values: 'boolean'
       }).match('x', OBJ).should.eql([
         {path: 'x.keys[1]', value: 'two', message: 'should match the regex /n/'},
-        {path: 'x[one]', value: 1, message: 'should be a boolean'},
+        {path: 'x[one]', value: 1, mesage: 'should be a boolean'},
         {path: 'x[two]', value: 2, message: 'should be a boolean'}
       ]);
     });

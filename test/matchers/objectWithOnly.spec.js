@@ -149,6 +149,21 @@ describe('objectWithOnly object matcher', function() {
     });
   });
 
+  it('generates the object json schema with description option', function() {
+    new objectWithOnly({
+      foo: 'string'
+    }).toJSONSchema().should.eql({
+      type: 'object',
+      properties: {
+        foo: {
+          type: 'string'
+        }
+      },
+      required: ['foo'],
+      additionalProperties: false
+    });
+  })
+
   it('calls constraint function and returns errors', function() {
     var constraintFunc = function (path, value) {
       if (value.street_number && !value.post_code) {
