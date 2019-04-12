@@ -150,15 +150,17 @@ describe('objectWithOnly object matcher', function() {
   });
 
   it('generates the object json schema with description option', function() {
-    new objectWithOnly({
-      foo: 'string'
-    }).toJSONSchema().should.eql({
+    new objectWithOnly(
+      { foo: 'string' },
+      { description: 'Lorem ipsum' }
+    ).toJSONSchema().should.eql({
       type: 'object',
       properties: {
         foo: {
           type: 'string'
         }
       },
+      description: 'Lorem ipsum',
       required: ['foo'],
       additionalProperties: false
     });
