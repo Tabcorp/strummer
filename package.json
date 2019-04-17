@@ -21,7 +21,7 @@
     "istanbul": "~0.4.5"
   },
   "dependencies": {
-    "escape-string-regexp": "^1.0.3",
+    "escape-string-regexp": "^2.0.0",
     "isarray": "^2.0.2",
     "lodash": "~4.17.2",
     "ms": "~2.1.1",
