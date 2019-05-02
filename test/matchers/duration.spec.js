@@ -54,4 +54,10 @@ describe('duration matcher', function() {
     reg.test('2 days').should.be.true;
     reg.test('1s').should.be.true;
   });
+
+  it('generates a string schema with optional description', function() {
+    var d = new duration({ description: 'Lorem ipsum' }).toJSONSchema();
+    d.type.should.equal('string');
+    d.description.should.equal('Lorem ipsum');
+  });
 });

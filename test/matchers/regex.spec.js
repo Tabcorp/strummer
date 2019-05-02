@@ -30,4 +30,12 @@ describe('regex matcher', function() {
       pattern: '[a-z]+'
     });
   });
+
+  it('generates a json schema with description option', function() {
+    new regex(/[a-z]+/, {description: 'Lorem ipsum'})._toJSONSchema().should.eql({
+      type: 'string',
+      pattern: '[a-z]+',
+      description: 'Lorem ipsum'
+    });
+  });
 });

@@ -80,25 +80,25 @@ new s.number({min:1, max:100})
 
 Built-in matchers include(all classes)
 
-- `s.array({min, max, of})`
-- `s.boolean()`
-- `s.duration({min, max})`
-- `s.enum({name, values, verbose})`
+- `s.array({min, max, of, description})`
+- `s.boolean({parse, description})`
+- `s.duration({min, max, description})`
+- `s.enum({name, values, verbose, description})`
 - `s.func({arity})`
 - `s.hashmap({keys, values})`
-- `s.integer({min, max})`
-- `s.ip({version: 4})`
-- `s.isoDate()`
-- `s.number({min, max})`
-- `s.object(fields)`
-- `s.objectWithOnly(fields)`
-- `s.regex(reg)`
-- `s.string({min, max})`
-- `s.url()`
-- `s.uuid({version})`
-- `s.value(primitive)`
-- `s.email({domain})`
-- `s.oneOf([matcher])`
+- `s.integer({min, max, description})`
+- `s.ip({version: 4, description})`
+- `s.isoDate({time, description})`
+- `s.number({min, max, parse, description})`
+- `s.object(fields, {description})`
+- `s.objectWithOnly(fields, {description})`
+- `s.regex(reg, {description})`
+- `s.string({min, max, description})`
+- `s.url({description})`
+- `s.uuid({version, description})`
+- `s.value(primitive, {description})`
+- `s.email({domain, description})`
+- `s.oneOf([matcher], {description})`
 
 They all come with [several usage examples](https://github.com/TabDigital/strummer/blob/master/MATCHERS.md).
 Matchers usually support both simple / complex usages, with nice syntactic sugar.
@@ -272,14 +272,14 @@ var value = {
 const errors = schema.match(value)
 // will error with post_code is requried with a street_number
 
-## JSON Schema Supports
+## JSON Schema Support
 
 Strummer can generate some simple JSON Schema from strummer definition.
 
 ```js
 var schema = s({
   foo: 'string',
-  bar: s.string({ optional: true }),
+  bar: s.string({ optional: true, description: 'Lorem Ipsum' }),
   num: s.number({ max: 100, min: 0 })
 });
 
@@ -297,7 +297,8 @@ which will shows log like this:
       type: 'string'
     },
     bar: {
-      type: 'string'
+      type: 'string',
+      description: 'Lorem Ipsum'
     },
     num: {
       type: 'number',

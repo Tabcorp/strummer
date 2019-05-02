@@ -35,11 +35,17 @@ describe('string matcher', function() {
     });
   });
 
-  it('generates a json shcme with maxLength option', function() {
+  it('generates a json schema with maxLength option', function() {
     new string({ max: 3 }).toJSONSchema().should.eql({
       type: 'string',
       maxLength: 3
     });
   });
 
+  it('generates a json schema with description option', function() {
+    new string({ description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'string',
+      description: 'Lorem ipsum'
+    });
+  });
 });

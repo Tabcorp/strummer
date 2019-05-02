@@ -89,4 +89,11 @@ describe('integer matcher', function() {
     });
   });
 
+  it('can have optional description json-schema', function() {
+    integer({ description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'integer',
+      description: 'Lorem ipsum'
+    });
+  });
+
 });
