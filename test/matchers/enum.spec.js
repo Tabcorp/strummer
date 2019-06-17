@@ -63,4 +63,14 @@ describe('enum matcher', function() {
     });
   });
 
+  it('generates enum json schema with optional type', function() {
+    new enumer({
+      values: ['foo', 'bar', 'brillian', 'kiddkai'],
+      type: 'string'
+    }).toJSONSchema().should.eql({
+      enum: ['foo', 'bar', 'brillian', 'kiddkai'],
+      type: 'string'
+    });
+  });
+
 });

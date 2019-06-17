@@ -73,6 +73,9 @@ state: s.enum({values: ['NSW', 'VIC'], name:'state'})
 
 // displays "should be a valid state (NSW,VIC)"
 state: s.enum({values: ['NSW', 'VIC'], name:'state', verbose: true})
+
+// you can pass in the enum type, which will be used in the jsonschema output
+state: s.enum({type: 'string', values: ['NSW', 'VIC']})
 ```
 
 ## func
