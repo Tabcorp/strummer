@@ -12,7 +12,7 @@
   },
   "repository": "TabDigital/strummer",
   "devDependencies": {
-    "mocha": "~5.2.0",
+    "mocha": "~6.2.2",
     "should": "~13.2.3",
     "cli-table": "~0.3.0",
     "format-number": "~3.0.0",
