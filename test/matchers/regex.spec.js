@@ -24,6 +24,12 @@ describe('regex matcher', function() {
     new regex(/[a-z]+/).match('', true).should.have.error(/should be a string/);
   });
 
+  it('returns a custom error message if specified', function () {
+    new regex(/[a-z]+/, {errorMessage: 'Should only contain lower case letters'})
+      .match('', '123')
+      .should.have.error(/Should only contain lower case letters/);
+  })
+
   it('generates string json schema with regex pattern', function() {
     new regex(/[a-z]+/)._toJSONSchema().should.eql({
       type: 'string',
@@ -36,6 +42,14 @@ describe('regex matcher', function() {
       type: 'string',
       pattern: '[a-z]+',
       description: 'Lorem ipsum'
+    });
+  });
+
+  it('generates a json schema with errorMessage option', function() {
+    new regex(/[a-z]+/, {errorMessage: 'Lorem ipsum'})._toJSONSchema().should.eql({
+      type: 'string',
+      pattern: '[a-z]+',
+      errorMessage: 'Lorem ipsum'
     });
   });
 });
