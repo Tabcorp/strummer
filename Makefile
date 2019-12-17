@@ -8,8 +8,7 @@ test: lint performance
 	@./node_modules/.bin/mocha
 
 coverage: lint
-	@./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha
-	@./node_modules/.bin/istanbul check-coverage --config=istambul.yml
+	@./node_modules/.bin/nyc node_modules/mocha/bin/_mocha
 
 travis: lint coverage performance
 

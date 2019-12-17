@@ -6,6 +6,8 @@
   "license": "MIT",
   "main": "lib/strummer.js",
   "scripts": {
+    "cover": "nyc node_modules/mocha/bin/_mocha",
+    "coverage": "nyc report",
     "test": "make test",
     "lint": "make lint",
     "prepublish": "make test && make lint"
@@ -18,7 +20,7 @@
     "format-number": "~3.0.0",
     "require-dir": "~1.1.0",
     "eslint": "5.14.0",
-    "istanbul": "~0.4.5"
+    "nyc": "^14.1.1"
   },
   "dependencies": {
     "escape-string-regexp": "^1.0.3",
