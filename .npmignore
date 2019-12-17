@@ -2,7 +2,6 @@
 .npmignore
 .travis.yml
 .eslintrc
-istambul.yml
-coverage
 test
 Makefile
+.nyc_output

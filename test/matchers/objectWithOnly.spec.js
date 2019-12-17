@@ -9,8 +9,14 @@ describe('objectWithOnly object matcher', function() {
 
   it('cannot be called with anything but an object matcher', function() {
     (function() {
-      var schema = new objectWithOnly('string');
-    }).should.throw(/Invalid argument/);
+      new objectWithOnly('string');
+    }).should.throw(/Invalid spec/);
+  });
+
+  it('constraints must be a function', function() {
+    (function() {
+      new objectWithOnly({}, { constraints: 'asdf' });
+    }).should.throw(/Invalid constraints/);
   });
 
   it('returns error if the object matcher returns one', function() {
@@ -50,9 +56,9 @@ describe('objectWithOnly object matcher', function() {
       age:  new number()
     });
 
-    schema.match('', {name: 'bob', age: 21, email: "bob@email.com"}).should.eql([{
+    schema.match('', {name: 'bob', age: 21, email: 'bob@email.com'}).should.eql([{
       path: 'email',
-      value: "bob@email.com",
+      value: 'bob@email.com',
       message: 'should not exist'
     }])
   });
@@ -70,8 +76,8 @@ describe('objectWithOnly object matcher', function() {
       name: 'bob',
       age: 21,
       address: {
-        email: "bob@email.com",
-        home: "21 bob street"
+        email: 'bob@email.com',
+        home: '21 bob street'
       }
     }
 
@@ -142,5 +148,69 @@ describe('objectWithOnly object matcher', function() {
       additionalProperties: false
     });
   });
-  
+
+  it('generates the object json schema with description option', function() {
+    new objectWithOnly(
+      { foo: 'string' },
+      { description: 'Lorem ipsum' }
+    ).toJSONSchema().should.eql({
+      type: 'object',
+      properties: {
+        foo: {
+          type: 'string'
+        }
+      },
+      description: 'Lorem ipsum',
+      required: ['foo'],
+      additionalProperties: false
+    });
+  })
+
+  it('calls constraint function and returns errors', function() {
+    var constraintFunc = function (path, value) {
+      if (value.street_number && !value.post_code) {
+        return [{
+          path: path,
+          value: value,
+          error: 'post_code is requried with a street_number'
+        }]
+      }
+
+      return []
+    }
+
+    var schema = new objectWithOnly({
+      email_address: new string(),
+      street_number: new number({optional: true}),
+      post_code: new number({optional: true}),
+    }, {
+      constraints: constraintFunc
+    });
+
+    var value = {
+      email_address: 'test@strummer.com',
+      street_number: 12,
+    }
+
+    schema.match(value).should.eql([{
+      path: '',
+      value: value,
+      error: 'post_code is requried with a street_number'
+    }]);
+  });
+
+  it('returns empty array if no constraint errors', function() {
+    var constraintFunc = function (path, val) {
+      return []
+    }
+
+    var schema = new objectWithOnly({
+      name: new string(),
+    }, {
+      constraints: constraintFunc
+    });
+
+    schema.match('/', {name: 'works'}, constraintFunc).should.eql([]);
+  });
+
 });

@@ -181,6 +181,26 @@ describe('object matcher', function() {
       });
     });
 
+    it('generate json schema with description option', function() {
+      var matcher = new object(
+        { foo: number({ max: 100, min: 1 }) },
+        { description: 'Lorem ipsum' }
+      );
+
+      matcher.toJSONSchema().should.eql({
+        type: 'object',
+        required: ['foo'],
+        description: 'Lorem ipsum',
+        properties: {
+          foo: {
+            type: 'number',
+            maximum: 100,
+            minimum: 1
+          }
+        }
+      });
+    });
+
     it('will not generate json schema for the property which generate nothing', function() {
       var custom = factory({
         initialize: function() {},

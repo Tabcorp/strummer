@@ -1,27 +1,29 @@
 {
   "name": "strummer",
-  "version": "2.5.0",
+  "version": "2.10.0",
   "description": "Structural matching for JavaScript",
   "author": "Tabcorp Digital Technology Team",
   "license": "MIT",
   "main": "lib/strummer.js",
   "scripts": {
+    "cover": "nyc node_modules/mocha/bin/_mocha",
+    "coverage": "nyc report",
     "test": "make test",
     "lint": "make lint",
     "prepublish": "make test && make lint"
   },
   "repository": "TabDigital/strummer",
   "devDependencies": {
-    "mocha": "~5.2.0",
+    "mocha": "~6.2.2",
     "should": "~13.2.3",
     "cli-table": "~0.3.0",
     "format-number": "~3.0.0",
     "require-dir": "~1.2.0",
-    "eslint": "5.5.0",
-    "istanbul": "~0.4.5"
+    "eslint": "~6.7.2",
+    "nyc": "^14.1.1"
   },
   "dependencies": {
-    "escape-string-regexp": "^1.0.3",
+    "escape-string-regexp": "^2.0.0",
     "isarray": "^2.0.2",
     "lodash": "~4.17.2",
     "ms": "~2.1.1",

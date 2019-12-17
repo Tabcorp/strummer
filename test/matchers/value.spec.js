@@ -31,6 +31,15 @@ describe('equals matcher', function() {
   });
 
   describe('when strict equality on primitive', function() {
+    it('passes for null', function() {
+      new ValueMatcher(null).match('', null).should.not.have.error();
+      new ValueMatcher(null).match('', 123).should.eql([{
+        path: '',
+        value: 123,
+        message: 'should strict equal null'
+      }])
+    });
+
     it('passes for boolean', function() {
       new ValueMatcher(true).match('', true).should.not.have.error();
     });
@@ -47,6 +56,13 @@ describe('equals matcher', function() {
   it('generates enum json schema', function() {
     new ValueMatcher(1).toJSONSchema().should.eql({
       enum: [1]
+    });
+  });
+
+  it('generates enum json schema with description', function() {
+    new ValueMatcher(1, {description: 'Lorem ipsum'}).toJSONSchema().should.eql({
+      enum: [1],
+      description: 'Lorem ipsum'
     });
   });
 });

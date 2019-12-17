@@ -52,4 +52,12 @@ describe('iso date matcher', function() {
       format: 'ISO8601'
     });
   });
+
+  it('generates json schema with specific format', function() {
+    new date({ description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'string',
+      format: 'ISO8601',
+      description: 'Lorem ipsum'
+    });
+  });
 });

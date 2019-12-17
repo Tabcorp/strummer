@@ -85,6 +85,13 @@ describe('number matcher', function() {
     });
   });
 
+  it('can have optional description in json-schema', function() {
+    number({ description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'number',
+      description: 'Lorem ipsum'
+    });
+  });
+
   it('can have no limit number json-schema', function() {
     number().toJSONSchema().should.eql({
       type: 'number'

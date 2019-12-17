@@ -50,7 +50,27 @@ describe('enum matcher', function() {
       values: ['foo', 'bar', 'brillian', 'kiddkai']
     }).toJSONSchema().should.eql({
       enum: ['foo', 'bar', 'brillian', 'kiddkai']
-    }); 
+    });
+  });
+
+  it('generates enum json schema with optional description', function() {
+    new enumer({
+      values: ['foo', 'bar', 'brillian', 'kiddkai'],
+      description: 'Lorem ipsum'
+    }).toJSONSchema().should.eql({
+      enum: ['foo', 'bar', 'brillian', 'kiddkai'],
+      description: 'Lorem ipsum'
+    });
+  });
+
+  it('generates enum json schema with optional type', function() {
+    new enumer({
+      values: ['foo', 'bar', 'brillian', 'kiddkai'],
+      type: 'string'
+    }).toJSONSchema().should.eql({
+      enum: ['foo', 'bar', 'brillian', 'kiddkai'],
+      type: 'string'
+    });
   });
 
 });

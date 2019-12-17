@@ -120,6 +120,16 @@ describe('array matcher', function() {
     });
   });
 
+  it('creates a simple array json schema with optional description', function() {
+    new array({ of: 'string', description: 'Lorem ipsum' }).toJSONSchema().should.eql({
+      type: 'array',
+      description: 'Lorem ipsum',
+      items: {
+        type: 'string'
+      }
+    });
+  });
+
   it('creates array json schema with minItems option', function() {
     new array({ of: 'string', min: 1 }).toJSONSchema().should.eql({
       type: 'array',
@@ -139,5 +149,22 @@ describe('array matcher', function() {
       minItems: 1,
       maxItems: 999
     });
+  });
+
+  it('passes index of item to the matcher', function() {
+    var valueMatcher = {
+      __proto__: new Matcher({}),
+      match: function(path, value, index) {
+        return [{ path: path, value: value, message: value + " is number " + (index + 1)}]
+      }
+    };
+
+    new array({
+      of: valueMatcher
+    }).match('path', ['bob']).should.eql([{
+      path: 'path[0]',
+      value: 'bob',
+      message: 'bob is number 1'
+    }]);
   });
 });

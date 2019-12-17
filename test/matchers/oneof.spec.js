@@ -75,6 +75,16 @@ describe('oneOf', function() {
     });
   });
 
+  it('generates oneOf json schema for description', function() {
+    oneOf(['string', 'number'], { description: 'Lorem ipsum' } ).toJSONSchema().should.eql({
+      oneOf: [
+        { type: 'string' },
+        { type: 'number' }
+      ],
+      description: 'Lorem ipsum'
+    });
+  });
+
   it('generates oneOf json schema for same types', function() {
     oneOf([{ foo: 'string' }, { bar: 'number' }]).toJSONSchema().should.eql({
       type: 'object',
@@ -94,6 +104,16 @@ describe('oneOf', function() {
           required: ['bar']
         }
       ]
+    });
+  });
+
+  it('generates a json schema with description option', function() {
+    oneOf(['string', 'number'], { description: 'Lorem ipsum' } ).toJSONSchema().should.eql({
+      oneOf: [
+        { type: 'string' },
+        { type: 'number' }
+      ],
+      description: 'Lorem ipsum'
     });
   });
 });

@@ -34,4 +34,12 @@ describe('ip address matcher', function() {
       pattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$'
     });
   });
+
+  it('returns optional description as json schema', function() {
+    new IPMatcher({version: 4, description: 'Lorem ipsum'}).toJSONSchema().should.eql({
+      type: 'string',
+      pattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$',
+      description: 'Lorem ipsum'
+    });
+  });
 });

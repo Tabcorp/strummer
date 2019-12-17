@@ -84,4 +84,42 @@ describe('hashmap matcher', function() {
 
   });
 
+  describe('jsonschema', function() {
+    it('creates json schema', function() {
+      var matcher = new hashmap();
+
+      matcher.toJSONSchema().should.eql({ type: 'object' });
+    });
+
+    it('creates json schema when value shema is defined', function() {
+      var matcher = new hashmap(new s.string());
+
+      matcher.toJSONSchema().should.eql({
+        type: 'object',
+        additionalProperties: { type: 'string' }
+      });
+    });
+
+    it('creates json schema when keys and values are defined', function() {
+      var matcher = new hashmap({
+        keys: /n/,
+        values: new s.number({max: 1})
+      });
+
+      matcher.toJSONSchema().should.eql({
+        type: 'object',
+        additionalProperties: { type: 'number', maximum: 1 }
+      });
+    });
+
+    it('creates json schema with description', function() {
+      var matcher = new hashmap({ description: 'Lorem ipsum' });
+
+      matcher.toJSONSchema().should.eql({
+        type: 'object',
+        description: 'Lorem ipsum'
+      });
+    });
+  });
+
 });

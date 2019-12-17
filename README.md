@@ -25,6 +25,7 @@
 - [Optional values](#optional-values)
 - [Defining custom matchers](#defining-custom-matchers)
 - [Asserting on matchers](#asserting-on-matchers)
+- [Custom constraints](#custom-constraints)
 - [A note on performance](#a-note-on-performance)
 
 ## Getting started
@@ -79,25 +80,25 @@ new s.number({min:1, max:100})
 
 Built-in matchers include(all classes)
 
-- `s.array({min, max, of})`
-- `s.boolean()`
-- `s.duration({min, max})`
-- `s.enum({name, values, verbose})`
+- `s.array({min, max, of, description})`
+- `s.boolean({parse, description})`
+- `s.duration({min, max, description})`
+- `s.enum({name, values, verbose, description})`
 - `s.func({arity})`
 - `s.hashmap({keys, values})`
-- `s.integer({min, max})`
-- `s.ip({version: 4})`
-- `s.isoDate()`
-- `s.number({min, max})`
-- `s.object(fields)`
-- `s.objectWithOnly(fields)`
-- `s.regex(reg)`
-- `s.string({min, max})`
-- `s.url()`
-- `s.uuid({version})`
-- `s.value(primitive)`
-- `s.email({domain})`
-- `s.oneOf([matcher])`
+- `s.integer({min, max, description})`
+- `s.ip({version: 4, description})`
+- `s.isoDate({time, description})`
+- `s.number({min, max, parse, description})`
+- `s.object(fields, {description})`
+- `s.objectWithOnly(fields, {description})`
+- `s.regex(reg, {description})`
+- `s.string({min, max, description})`
+- `s.url({description})`
+- `s.uuid({version, description})`
+- `s.value(primitive, {description})`
+- `s.email({domain, description})`
+- `s.oneOf([matcher], {description})`
 
 They all come with [several usage examples](https://github.com/TabDigital/strummer/blob/master/MATCHERS.md).
 Matchers usually support both simple / complex usages, with nice syntactic sugar.
@@ -232,14 +233,53 @@ s.assert(person, {
 // person.age should be a number <= 200 (but was 250)
 ```
 
-## JSON Schema Supports
+## Custom constraints
+
+Custom constraints can be applied by passing a function as the second argument when creating the schema. This function will be run on match and you are able to return an array of errors.
+
+Currently only objectWithOnly is supported.
+
+An example use case is related optional fields
+
+```js
+// AND relationship between two optional fields
+
+var constraintFunc = function (path, value) {
+  if (value.street_number && !value.post_code) {
+    return [{
+      path: path,
+      value: value,
+      error: 'post_code is requried with a street_number'
+    }]
+  }
+
+  return []
+}
+
+var schema = new objectWithOnly({
+  email_address: new string(),
+  street_number: new number({optional: true}),
+  post_code: new number({optional: true}),
+}, {
+  constraints: constraintFunc
+});
+
+var value = {
+  email_address: 'test@strummer.com',
+  street_number: 12,
+}
+
+const errors = schema.match(value)
+// will error with post_code is requried with a street_number
+
+## JSON Schema Support
 
 Strummer can generate some simple JSON Schema from strummer definition.
 
 ```js
 var schema = s({
   foo: 'string',
-  bar: s.string({ optional: true }),
+  bar: s.string({ optional: true, description: 'Lorem Ipsum' }),
   num: s.number({ max: 100, min: 0 })
 });
 
@@ -257,7 +297,8 @@ which will shows log like this:
       type: 'string'
     },
     bar: {
-      type: 'string'
+      type: 'string',
+      description: 'Lorem Ipsum'
     },
     num: {
       type: 'number',
