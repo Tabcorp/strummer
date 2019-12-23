@@ -20,7 +20,7 @@
     "format-number": "~3.0.0",
     "require-dir": "~1.2.0",
     "eslint": "~6.7.2",
-    "nyc": "^14.1.1"
+    "nyc": "^15.0.0"
   },
   "dependencies": {
     "escape-string-regexp": "^2.0.0",
