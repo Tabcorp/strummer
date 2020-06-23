@@ -5,7 +5,7 @@
 [![NPM](http://img.shields.io/npm/v/strummer.svg?style=flat-square)](https://npmjs.org/package/strummer)
 [![License](http://img.shields.io/npm/l/strummer.svg?style=flat-square)](https://github.com/Tabcorp/strummer)
 
-[![Build Status](http://img.shields.io/travis/Tabcorp/strummer.svg?style=flat-square)](http://travis-ci.org/Tabcorp/strummer)
+[![Build Status](https://travis-ci.org/Tabcorp/strummer.svg?branch=master)](https://travis-ci.org/Tabcorp/strummer)
 [![Test coverage](https://img.shields.io/badge/coverage-100-brightgreen.svg?style=flat-square)](http://travis-ci.org/Tabcorp/strummer)
 
 [![Dependencies](http://img.shields.io/david/Tabcorp/strummer.svg?style=flat-square)](https://david-dm.org/Tabcorp/strummer)
