@@ -6,10 +6,10 @@
 [![License](http://img.shields.io/npm/l/strummer.svg?style=flat-square)](https://github.com/Tabcorp/strummer)
 
 [![Build Status](http://img.shields.io/travis/Tabcorp/strummer.svg?style=flat-square)](http://travis-ci.org/Tabcorp/strummer)
-[![Test coverage](https://img.shields.io/badge/coverage-100%-brightgreen.svg?style=flat-square)](http://travis-ci.org/Tabcorp/strummer)
+[![Test coverage](https://img.shields.io/badge/coverage-100-brightgreen.svg?style=flat-square)](http://travis-ci.org/Tabcorp/strummer)
 
 [![Dependencies](http://img.shields.io/david/Tabcorp/strummer.svg?style=flat-square)](https://david-dm.org/Tabcorp/strummer)
-[![Dev dependencies](http://img.shields.io/david/dev/Tabcorp/strummer.svg?style=flat-square)](https://david-dm.org/Tabcorp/strummer) [![Greenkeeper badge](https://badges.greenkeeper.io/Tabcorp/strummer.svg)](https://greenkeeper.io/)
+[![Dev dependencies](http://img.shields.io/david/dev/Tabcorp/strummer.svg?style=flat-square)](https://david-dm.org/Tabcorp/strummer)
 
 ## Main uses cases
 
@@ -100,7 +100,7 @@ Built-in matchers include(all classes)
 - `s.email({domain, description})`
 - `s.oneOf([matcher], {description})`
 
-They all come with [several usage examples](https://github.com/TabDigital/strummer/blob/master/MATCHERS.md).
+They all come with [several usage examples](https://github.com/Tabcorp/strummer/blob/master/MATCHERS.md).
 Matchers usually support both simple / complex usages, with nice syntactic sugar.
 
 ## A more complex example
