@@ -23,7 +23,7 @@
     "nyc": "^15.0.0"
   },
   "dependencies": {
-    "escape-string-regexp": "^4.0.0",
+    "escape-string-regexp": "^5.0.0",
     "isarray": "^2.0.2",
     "lodash": "~4.17.2",
     "ms": "~2.1.1",
