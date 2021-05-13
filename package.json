@@ -5,6 +5,7 @@
   "author": "Tabcorp Digital Technology Team",
   "license": "MIT",
   "main": "lib/strummer.js",
+  "types": "lib/strummer.d.ts",
   "scripts": {
     "cover": "nyc node_modules/mocha/bin/_mocha",
     "coverage": "nyc report",

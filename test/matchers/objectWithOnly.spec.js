@@ -1,5 +1,6 @@
 var objectWithOnly  = require('../../lib/matchers/objectWithOnly');
 var array           = require('../../lib/matchers/array');
+var boolean         = require('../../lib/matchers/boolean');
 var string          = require('../../lib/matchers/string');
 var number          = require('../../lib/matchers/number');
 var optional        = require('../../lib/matchers/optional');
@@ -132,6 +133,39 @@ describe('objectWithOnly object matcher', function() {
     }).match('', {
       name: 'bob'
     }).should.eql([])
+  });
+
+  it('will parse a valid flat object', function() {
+    var matcher = new objectWithOnly({ foo: boolean() });
+    matcher.safeParse({ foo: 'true' }).should.eql({ errors: [], value: { foo: true }})
+  });
+
+  it('will parse an invalid flat object', function() {
+    var matcher = new objectWithOnly({ foo: boolean() });
+    matcher.safeParse({ foo: 'bar' }).should.eql({errors: [{path: 'foo', message: 'should be a boolean'}]})
+  });
+
+  it('will parse an valid nested object', function() {
+    var matcher = new objectWithOnly({ foo: objectWithOnly({ bar: boolean() }) });
+    matcher.safeParse({ foo: { bar: 'false' } }).should.eql({ errors: [], value: { foo: { bar: false } }})
+  });
+
+  it('will parse an invalid nested object', function() {
+    var matcher = new objectWithOnly({ foo: objectWithOnly({ bar: boolean() }) });
+    matcher.safeParse({ foo: 'true' }).should.eql({errors: [{ message: 'should be an object', path: 'foo', value: 'true'}]})
+  });
+
+  it('rejects if there are extra keys', function() {
+    var schema = new objectWithOnly({
+      name: new string(),
+      age:  new number()
+    });
+
+    schema.safeParse('', {name: 'bob', age: 21, email: 'bob@email.com'}).should.eql({ errors: [{
+      path: 'email',
+      value: 'bob@email.com',
+      message: 'should not exist'
+    }]})
   });
 
   it('generates the object json schema but with additionalProperties which sets false', function() {

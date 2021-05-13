@@ -44,4 +44,9 @@ describe('boolean matcher', function() {
     });
   });
 
+  it('can parse a boolean from a string', function() {
+    new BoolMatcher().safeParse('', 'true').should.eql({ value: true });
+    new BoolMatcher().safeParse('', 'hello').should.eql({ errors: [{ path: '', message: 'should be a boolean' }] });
+  });
+
 });

@@ -23,7 +23,7 @@ describe('integer matcher', function() {
     new integer({max: 0}).match('', 3).should.have.error(/should be an integer <= 0/);
   });
 
-  it('fails for invalid min or max values', function(){
+  it('fails for invalid min or max values', function() {
     var shouldFail = function(val) {
       (function(){
         new integer({min: val});
@@ -94,6 +94,14 @@ describe('integer matcher', function() {
       type: 'integer',
       description: 'Lorem ipsum'
     });
+  });
+
+  it('coerces the value to an integer', function() {
+    integer({ parse: true, max: 100 }).safeParse('50').should.eql({ value: 50, errors: []});
+  });
+
+  it('does not coerce when coerce is set to false', function() {
+    integer({ parse: true, max: 100, coerce: false }).safeParse('50').should.eql({ value: '50', errors: []});
   });
 
 });

@@ -60,4 +60,14 @@ describe('duration matcher', function() {
     d.type.should.equal('string');
     d.description.should.equal('Lorem ipsum');
   });
+
+  it('parses a valid duration', function() {
+    var d = new duration({ description: 'Lorem ipsum' });
+    d.safeParse('10s').should.eql({ value: '10s', errors: [] });
+  });
+
+  it('parses an invalid duration', function() {
+    var d = new duration({ description: 'Lorem ipsum' });
+    d.safeParse('xyz').should.eql({ errors: [{path: '', message: 'should be a duration string (e.g. "10s")', value: 'xyz'}] });
+  });
 });

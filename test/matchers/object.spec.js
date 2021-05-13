@@ -4,6 +4,7 @@ var string = require('../../lib/matchers/string');
 var number = require('../../lib/matchers/number');
 var factory = require('../../lib/factory');
 var Matcher = require('../../lib/matcher');
+var boolean = require('../../lib/matchers/boolean');
 
 describe('object matcher', function() {
 
@@ -35,7 +36,7 @@ describe('object matcher', function() {
     it('validates flat objects', function() {
       var schema = new object({
         name: new string(),
-        age: new  number()
+        age: new number()
       });
 
       schema.match('', {
@@ -199,6 +200,26 @@ describe('object matcher', function() {
           }
         }
       });
+    });
+
+    it('will parse a valid flat object', function() {
+      var matcher = new object({ foo: boolean() });
+      matcher.safeParse({ foo: 'true' }).should.eql({ errors: [], value: { foo: true }})
+    });
+
+    it('will parse an invalid flat object', function() {
+      var matcher = new object({ foo: boolean() });
+      matcher.safeParse({ foo: 'bar' }).should.eql({errors: [{path: 'foo', message: 'should be a boolean'}]})
+    });
+
+    it('will parse an valid nested object', function() {
+      var matcher = new object({ foo: object({ bar: boolean() }) });
+      matcher.safeParse({ foo: { bar: 'false' } }).should.eql({ errors: [], value: { foo: { bar: false } }})
+    });
+
+    it('will parse an invalid nested object', function() {
+      var matcher = new object({ foo: object({ bar: boolean() }) });
+      matcher.safeParse({ foo: 'true' }).should.eql({errors: [{ message: 'should be an object', path: 'foo', value: 'true'}]})
     });
 
     it('will not generate json schema for the property which generate nothing', function() {

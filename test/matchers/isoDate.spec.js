@@ -34,17 +34,21 @@ describe('iso date matcher', function() {
     new date().match('', null).should.have.error(/should be a date in ISO8601 format/);
   });
 
-  it("matches just the date if that's all is requested", function() {
+  it('matches just the date if that\'s all is requested', function() {
     new date({time: false}).match('', '2999-12-31').should.not.have.error();
   });
 
-  it("does not match invalid dates when the time is not required", function() {
+  it('does not match invalid dates when the time is not required', function() {
     new date({time: false}).match('', '2999/12/31').should.have.error(/should be a date in ISO8601 format/);
   });
 
   it('respects the time flag if explicitly used', function() {
     new date({time: true}).match('', '2999-12-31').should.have.error(/should be a date with time in ISO8601 format/);
   });
+
+  it('parses', function() {
+    new date({time: false}).safeParse('', '2021-05-01').should.eql({ value: new Date('2021-05-01'), errors: []});
+  })
 
   it('generates json schema with specific format', function() {
     new date().toJSONSchema().should.eql({

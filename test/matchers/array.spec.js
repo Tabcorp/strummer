@@ -1,5 +1,7 @@
 require('../../lib/strummer');
 var array  = require('../../lib/matchers/array');
+var bool  = require('../../lib/matchers/boolean');
+var optional = require('../../lib/matchers/optional');
 var string = require('../../lib/matchers/string');
 var Matcher = require('../../lib/matcher');
 
@@ -155,7 +157,7 @@ describe('array matcher', function() {
     var valueMatcher = {
       __proto__: new Matcher({}),
       match: function(path, value, index) {
-        return [{ path: path, value: value, message: value + " is number " + (index + 1)}]
+        return [{ path: path, value: value, message: value + ' is number ' + (index + 1)}]
       }
     };
 
@@ -166,5 +168,36 @@ describe('array matcher', function() {
       value: 'bob',
       message: 'bob is number 1'
     }]);
+  });
+
+  it('parses an array', function() {
+    new array({ of: new bool() }).safeParse('', ['true']).should.eql({ value: [true], errors: [] });
+
+    new array({ of: new bool() }).safeParse('', ['hello']).should.eql({
+      errors: [{ path: '[0]', message: 'should be a boolean' }]
+    });
+
+    new array({ of: new bool() }).safeParse('', ['hello', false]).should.eql({
+      errors: [{ path: '[0]', message: 'should be a boolean' }]
+    });
+  });
+
+  it('parses invalid nested arrays', function() {
+    new array({ of: new array({ of: bool() }) }).safeParse('', ['hello', 'false']).should.eql({
+      errors: [
+        { path: '[0]', message: 'should be an array', value: 'hello' },
+        { path: '[1]', message: 'should be an array', value: 'false' }
+      ]
+    });
+  });
+
+  it('parses valid nested arrays', function() {
+    new array({ of: new array({ of: bool() }) }).safeParse('', [['true']]).should.eql({ value: [[true]], errors: [] });
+  });
+
+  it('parses an array of optionals', function() {
+    new array({ of: optional(bool()) }).safeParse('', ['true', undefined, 'false']).should.eql({
+      value: [true, undefined, false], errors: []
+    });
   });
 });
