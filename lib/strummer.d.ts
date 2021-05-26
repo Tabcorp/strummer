@@ -1,7 +1,20 @@
 declare module "strummer" {
+  interface MatchResult<T> {
+    message: string;
+    path: string;
+    value: T;
+  }
+
+  interface MatchFn {
+    <T>(value: T): MatchResult<T>[];
+    <T>(path: string, value: T): MatchResult<T>[];
+  }
   export interface Matcher {
-    match: (path: string, value: string) => string | undefined;
-    safeParse: (path: string, value: string) =>  { errors: Array<string>, value?: any };
+    match: MatchFn;
+    safeParse: (
+      path: string,
+      value: string
+    ) => { errors: Array<string>; value?: any };
     toJSONSchema: () => JSONSchema;
   }
 
@@ -9,13 +22,18 @@ declare module "strummer" {
     type: "string";
   }
 
-  interface CreateMatcherOpts {
-    match: (path: string, value: string) => string | undefined;
-    safeParse?: (path: string, value: string) => { errors: Array<string>, value?: any };
+  interface CreateMatcherFactoryOpts {
+    optional?: boolean;
+    initialize?: (opts?: { optional?: boolean }) => void;
+    match: (path: string, value: any) => string | undefined;
+    safeParse?: (
+      path: string,
+      value: string
+    ) => { errors: Array<string>; value?: any };
     toJSONSchema?: () => JSONSchema;
   }
 
-  type CreateMatcher = () => Matcher;
+  export type MatcherFactory = () => Matcher;
 
   interface BaseOpts {
     description?: string;
@@ -26,6 +44,10 @@ declare module "strummer" {
     min?: number;
     max?: number;
     of: Matcher;
+  }
+
+  interface BooleanOpts extends BaseOpts {
+    parse?: boolean;
   }
 
   interface EnumOpts extends BaseOpts {
@@ -45,6 +67,7 @@ declare module "strummer" {
   interface IntegerOpts extends BaseOpts {
     min?: number;
     max?: number;
+    parse?: boolean;
   }
 
   interface NumberOpts extends BaseOpts {
@@ -63,8 +86,8 @@ declare module "strummer" {
   type ObjectWithOnlyOpts = Record<string, Matcher>;
 
   export function array(opts: ArrayOpts): Matcher;
-  export function boolean(opts?: never): Matcher;
-  export function createMatcher(opts: CreateMatcherOpts): CreateMatcher;
+  export function boolean(opts?: BooleanOpts): Matcher;
+  export function createMatcher(opts: CreateMatcherFactoryOpts): MatcherFactory;
 
   // enum is a protected name so requires special exporting
   function _enum(opts: EnumOpts): Matcher;
